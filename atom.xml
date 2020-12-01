@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2020-11-30T15:58:31.053Z</updated>
+  <updated>2020-12-01T18:21:26.373Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>三个访问Google的方式</title>
+    <link href="http://example.com/2020/12/02/%E4%B8%89%E4%B8%AA%E8%AE%BF%E9%97%AE%E8%B0%B7%E6%AD%8C%E7%9A%84%E6%96%B9%E5%BC%8F/"/>
+    <id>http://example.com/2020/12/02/%E4%B8%89%E4%B8%AA%E8%AE%BF%E9%97%AE%E8%B0%B7%E6%AD%8C%E7%9A%84%E6%96%B9%E5%BC%8F/</id>
+    <published>2020-12-01T18:03:36.851Z</published>
+    <updated>2020-12-01T18:21:26.373Z</updated>
+    
+    <content type="html"><![CDATA[<p>1.修改host文件</p><pre><code>首先、Hosts它是一个没有扩展名的系统文件，而它的的基本作用就是将一些我们个人常用的网址和相对应的IP地址建立一个关联“数据库”。所以，当我们（也就是用户）在浏览器输入一个需要我们登录的网址时，我们的计算机系统会首先自动的从Hosts文件中寻找对应的IP地址。如果一旦找到对应的IP地址，我们的系统将会立即打开对应的网页；如果没有找到，这时候系统将会把网址交给DNS域名解析服务器进行IP地址的解析。而如果系统发现是被屏蔽的IP或域名，就会禁止打开此网页！</code></pre><p>2.设置代理服务器</p><pre><code>须送出Request信号来得到回答，然后对方再把信息以bit方式传送回来。代理服务器是介于浏览器和Web服务器之间的一台服务器，有了它之后，浏览器不是直接到Web服务器去取回网页而是向代理服务器发出请求，Request信号会先送到代理服务器，由代理服务器来取回浏览器所需要的信息并传送给你的浏览器。因此代理服务器仅作用于网页，在其他应用上仍使用的真实IP。</code></pre><p>3.使用vpn</p><pre><code>与代理服务器不同的是VPN可以为全局网络改变IP，其他与代理服务器类似。所以VPN是居家旅行，杀人越货的必要之选。：）</code></pre>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;1.修改host文件&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;首先、Hosts它是一个没有扩展名的系统文件，而它的的基本作用就是将一些我们个人常用的网址和相对应的IP地址建立一个关联“数据库”。
+所以，当我们（也就是用户）在浏览器输入一个需要我们登录的网址时，我们的计算机系统会首先自</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>极客大挑战wp</title>
