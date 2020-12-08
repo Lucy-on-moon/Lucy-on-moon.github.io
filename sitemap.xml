@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://example.com/2020/12/03/%E4%B9%A6%E6%91%98/</loc>
+    
+    <lastmod>2020-12-08</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://example.com/2020/12/08/re_reverse/</loc>
     
     <lastmod>2020-12-08</lastmod>
@@ -12,13 +19,6 @@
     <loc>http://example.com/2020/12/05/buupwn/</loc>
     
     <lastmod>2020-12-07</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://example.com/2020/12/03/%E4%B9%A6%E6%91%98/</loc>
-    
-    <lastmod>2020-12-03</lastmod>
     
   </url>
   
