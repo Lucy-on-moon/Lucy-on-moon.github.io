@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2020-12-13T17:38:11.623Z</updated>
+  <updated>2021-01-24T14:01:47.991Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,19 +17,23 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>这就卷起来了吗？！</title>
+    <title>汇编学习</title>
     <link href="http://example.com/2020/12/08/%E6%96%B0%E5%BB%BA%E5%A4%87%E7%94%A8/"/>
     <id>http://example.com/2020/12/08/%E6%96%B0%E5%BB%BA%E5%A4%87%E7%94%A8/</id>
     <published>2020-12-08T15:46:44.472Z</published>
-    <updated>2020-12-13T17:38:11.623Z</updated>
+    <updated>2021-01-24T14:01:47.991Z</updated>
     
-    <content type="html"><![CDATA[<p><strong>什么？他们又背着我学习？！</strong></p>]]></content>
+    <content type="html"><![CDATA[<p><strong>基础</strong></p><p>-r<br>                         查看寄存器内容</p><pre><code>-r ip   :0                            将IP改为0000</code></pre><p>-t   单步执行</p><p>-d  查看内存内容（几个字节）</p><p>-e  改写偏移地址</p><p>-u  将机器码编译为汇编指令</p><p>-a  以汇编语言的形式写入程序</p><hr><p>MASA中<br>move ax  , [0]       将al的值赋值为0</p><p>move ax  , ds:[0]   将偏移地址为0的内存单元的内容放进ax中</p><p>move ax  , [bx]      将bx的内容放进ax中  </p><hr><p>dw                         定义字形数据      //数据以字为单位，而非字节</p><p>dw                         定义字形数据<br>数据以字为单位，而非字节</p><pre><code>dw定义 字 类型变量，一个字数据占2个字节单dao元，读完一个，偏移量加2db定义 字节 类型变量，一个字节数据占1个字节单元，读完一个，偏移量加1。dd定义 双字类 型变量，一个双字数据占4个字节单元，读完一个，偏移量加4。  </code></pre><hr><p>AX的    低八位是AH寄存器，     高八位是AX  寄存器</p><p>dup 3（0）定义三个字节： 0，0，0</p><p>offset  取标号的偏移地址                 // start : mov ax , offset  start     ;相当于 mov  ax , 0 </p><p>   mul    bl<br>                                                        //al与 bl 相乘结果保存至 ax   </p><p><strong>div</strong>  </p><pre><code>被除数：默认放在AX或DX和AX，如果除数为8位，被除数则为16位，默认在AX中存放；如果除数 为16位， 被除数则为32位，在DX和AX中存放，DX存放高16位，AX存放低16位。结果：如果除数为8位，则AL存储除法操作的商，AH存储除法操作的余数；如果除数为16位，则AX存储除法操作的商，DX存储除法操作的余数。</code></pre><p><strong>inc</strong>    自增 1 </p><p><strong>dec</strong>   自减 1</p><hr><p><strong>jump</strong>  跳转</p><p>jcxz     cx==0 时跳转</p><p><strong>call</strong>       </p><pre><code>sp=sp-2((ss)*16+(sp))=ipip=ip+十六位位移</code></pre><p>push  ip </p><p>jump  near  ptr  标号             </p><p>ip=ip+十六位位移</p><p>**call far ptr 标号 **</p><pre><code>push  cspush  ipjump far ptr 标号</code></pre><hr><p><strong>ret</strong></p><pre><code>pop  ip</code></pre><p><strong>retf</strong>       </p><pre><code>pop  ippop  cs     </code></pre><p>可以 call  和  ret 的配合使用       </p>]]></content>
     
     
       
       
-    <summary type="html">&lt;p&gt;&lt;strong&gt;什么？他们又背着我学习？！&lt;/strong&gt;&lt;/p&gt;
-</summary>
+    <summary type="html">&lt;p&gt;&lt;strong&gt;基础&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;-r&lt;br&gt;                         查看寄存器内容&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;-r ip
+
+   :0      
+                      将IP改为0000&lt;/code</summary>
       
     
     
