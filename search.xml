@@ -5,8 +5,8 @@
     
     <entry>
       <title>缓冲区溢出-CTF-PWN</title>
-      <link href="2021/01/30/pwn%E5%AD%A6%E4%B9%A0/"/>
-      <url>2021/01/30/pwn%E5%AD%A6%E4%B9%A0/</url>
+      <link href="2021/01/30/%E7%BC%93%E5%86%B2%E5%8C%BA%E6%BA%A2%E5%87%BAPWN%E5%AD%A6%E4%B9%A0/"/>
+      <url>2021/01/30/%E7%BC%93%E5%86%B2%E5%8C%BA%E6%BA%A2%E5%87%BAPWN%E5%AD%A6%E4%B9%A0/</url>
       
         <content type="html"><![CDATA[<h1 id="常用寄存器"><a href="#常用寄存器" class="headerlink" title="常用寄存器"></a>常用寄存器</h1><p>和8086稍有区别，具体如下</p><p><img src="https://i.loli.net/2021/01/30/KJpQyoDv7jRdxeV.gif"></p><h1 id="常用指令"><a href="#常用指令" class="headerlink" title="常用指令"></a>常用指令</h1><p><img src="https://i.loli.net/2021/01/30/SG5b6xYvB7mhKJt.gif"></p>]]></content>
       
