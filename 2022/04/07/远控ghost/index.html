@@ -1,0 +1,353 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ME_dition | ME_dition</title><meta name="author" content="ME_dition"><meta name="copyright" content="ME_dition"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="1.1 创建窗口1.新建一个工程，看操作  我们必须给工程起一个响亮的名字 :-D  就叫PCRemote吧 2.添加最大化窗口，最小化窗口的属性  3.更改对话框到适当大小 4.添加服务端连接后显示的列表控件IDC_ONLINE，日志列表控件IDC_MESSAGE   6.添加列表控件变量m_CList_Online,m_CList_Message  7.相应对话框改变大小的消息WM_SIZE就">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ME_dition">
+<meta property="og:url" content="http://example.com/2022/04/07/%E8%BF%9C%E6%8E%A7ghost/index.html">
+<meta property="og:site_name" content="ME_dition">
+<meta property="og:description" content="1.1 创建窗口1.新建一个工程，看操作  我们必须给工程起一个响亮的名字 :-D  就叫PCRemote吧 2.添加最大化窗口，最小化窗口的属性  3.更改对话框到适当大小 4.添加服务端连接后显示的列表控件IDC_ONLINE，日志列表控件IDC_MESSAGE   6.添加列表控件变量m_CList_Online,m_CList_Message  7.相应对话框改变大小的消息WM_SIZE就">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg">
+<meta property="article:published_time" content="2022-04-07T14:32:37.280Z">
+<meta property="article:modified_time" content="2022-04-08T16:33:50.758Z">
+<meta property="article:author" content="ME_dition">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2022/04/07/%E8%BF%9C%E6%8E%A7ghost/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="yandex-verification" content="{&quot;theme_color&quot;:{&quot;enable&quot;:true,&quot;main&quot;:&quot;#49B1F5&quot;,&quot;paginator&quot;:&quot;#00c4b6&quot;,&quot;button_hover&quot;:&quot;#FF7242&quot;,&quot;text_selection&quot;:&quot;#00c4b6&quot;,&quot;link_color&quot;:&quot;#99a9bf&quot;,&quot;meta_color&quot;:&quot;#858585&quot;,&quot;hr_color&quot;:&quot;#A4D8FA&quot;,&quot;code_foreground&quot;:&quot;#F47466&quot;,&quot;code_background&quot;:&quot;rgba(27, 31, 35, .05)&quot;,&quot;toc_color&quot;:&quot;#00c4b6&quot;,&quot;blockquote_padding_color&quot;:&quot;#49b1f5&quot;,&quot;blockquote_background_color&quot;:&quot;#49b1f5&quot;}}"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-04-09 00:33:50'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/atom.xml" title="ME_dition" type="application/atom+xml">
+</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/null" onerror="onerror=null;src='/img/logo.jpg'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">24</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> List</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> music</span></a></li><li><a class="site-page" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> Gallery</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> movies</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">ME_dition</a></span><span id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> List</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> music</span></a></li><li><a class="site-page" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> Gallery</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> movies</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><h1 class="post-title">No title</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2022-04-07T14:32:37.280Z" title="Created 2022-04-07 22:32:37">2022-04-07</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2022-04-08T16:33:50.758Z" title="Updated 2022-04-09 00:33:50">2022-04-09</time></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="1-1-创建窗口"><a href="#1-1-创建窗口" class="headerlink" title="1.1 创建窗口"></a>1.1 创建窗口</h1><p>1.新建一个工程，看操作  我们必须给工程起一个响亮的名字 :-D  就叫PCRemote吧</p>
+<p>2.添加最大化窗口，最小化窗口的属性</p>
+<p><img src="https://s2.loli.net/2022/04/07/DnJm8vQgNZKYwEu.png"></p>
+<p>3.更改对话框到适当大小</p>
+<p>4.添加服务端连接后显示的列表控件IDC_ONLINE，日志列表控件IDC_MESSAGE</p>
+<p><img src="https://s2.loli.net/2022/04/07/BPiQouJmckgXetz.png"></p>
+<p><img src="https://s2.loli.net/2022/04/07/otevpd6LEPWZCAq.png"></p>
+<p>6.添加列表控件变量m_CList_Online,m_CList_Message</p>
+<p><img src="https://s2.loli.net/2022/04/07/yJrF3RAUYCI6E2V.png"></p>
+<p>7.相应对话框改变大小的消息WM_SIZE就是 向对话框抛出这个消息对话框就会改变大小，我们先相应这个消息，然后再把这个消息<br>  向下传递</p>
+<p><img src="https://s2.loli.net/2022/04/07/mfPWCXMGOxEuaSd.png"></p>
+<p>9.示范伸缩</p>
+<p>10.伸缩同原来的有差别，介绍一个小技巧 在OnInitDialog:</p>
+<p>当对话框改变时，WM_SIZE抛出消息由OnInitDialog响应，此时对话框还没有显示，可以在显示前改变对话框。</p>
+<p><img src="https://s2.loli.net/2022/04/07/M8VW2OGDicPuR5s.png"></p>
+<h1 id="1-2-添加列表中的列名"><a href="#1-2-添加列表中的列名" class="headerlink" title="1.2 添加列表中的列名"></a>1.2 添加列表中的列名</h1><p>1.参考gh0st的列表中的列名:<br>   0IP 1所在区域   2计算机名/备注  3操作系统  4CPU  5摄像头  6Ping</p>
+<p>2.上一节我们为列表控件添加变量，我们来查看变量的类型:<br>  CListCtrl 类 查看MSDN  找到</p>
+<pre><code>int InsertColumn(
+                int nCol,                  //列的顺序
+                LPCTSTR lpszColumnHeading, //列的名字
+                int nFormat = LVCFMT_LEFT,  //列对齐的方式 LVCFMT_LEFT, LVCFMT_RIGHT,LVCFMT_CENTER
+                int nWidth = -1,            //列的宽度
+                int nSubItem = -1           //与之联系的子条目 默认为-1 我们不用写
+                );</code></pre>
+<p>3.有了这些我们可以现在就写入代码了，但请等一下我们来考虑一下以后的扩展问题，假如我们要加入新的列那会不会很麻烦，我们每一个列都写入了固定的</p>
+<p>  顺序(0–6)没有考虑扩展，比如在CPU列的后面加入显示内存大小，那么加入的就是第5列，而第5列恰好是摄头，这样显示的数据就会混乱(其实这个正是我写</p>
+<p>   PCRat时犯的错误)，解决这个问题的方式就是用枚举enum 写入列的顺序时不写入硬编码(0—-6)而是写入枚举成员这样我们只需很小的改动就能达到目的。</p>
+<p>4.需要一个列表记录表格中的字符，因为这个列表比较重要所以要放到一个每一个文件都能访问到的文件，我这里选择了framework.h</p>
+<pre><code>enum
+&#123;
+    ONLINELIST_IP=0,          //IP的列顺序
+    ONLINELIST_ADDR,          //地址
+    ONLINELIST_COMPUTER_NAME, //计算机名/备注
+    ONLINELIST_OS,           //操作系统
+    ONLINELIST_CPU,          //CPU
+    ONLINELIST_VIDEO,       //摄像头
+    ONLINELIST_PING          //PING
+&#125;;</code></pre>
+<p><img src="https://s2.loli.net/2022/04/07/oIXgDbcBy2khKYf.png"></p>
+<p>5.处理列表的代码应该统一放在一处，添加列表处理的代码InitList()</p>
+<p>虽然列表可以直接写在OnInitDialog，但直接在这里初始化太过臃肿，所以可以添加成员函数</p>
+<p><img src="https://s2.loli.net/2022/04/07/QImhWR61zrlBkMC.png"></p>
+<p><img src="https://s2.loli.net/2022/04/07/UuWYy42olTQXPiM.png"></p>
+<p>6.写入加入列表列名的代码:</p>
+<p>   列表的名字与列表的宽度是同一一对应的关系，以后为了以后修改方便建立这样的一个结构体:</p>
+<pre><code> typedef struct
+&#123;
+    char    *title;           //列表的名称
+    int        nWidth;   //列表的宽度
+&#125;COLUMNSTRUCT;</code></pre>
+<p>以char类型表示 列表的名字，以int 类型表示列表的宽度</p>
+<p>然后建立这个结构体变量的数组</p>
+<pre><code>   COLUMNSTRUCT g_Column_Data[] = 
+&#123;
+    &#123;&quot;IP&quot;,                148    &#125;,
+    &#123;&quot;区域&quot;,            150    &#125;,
+    &#123;&quot;计算机名/备注&quot;,    160    &#125;,
+    &#123;&quot;操作系统&quot;,        128    &#125;,
+    &#123;&quot;CPU&quot;,                80    &#125;,
+    &#123;&quot;摄像头&quot;,            81    &#125;,
+    &#123;&quot;PING&quot;,            81    &#125;
+&#125;;</code></pre>
+<p>添加全局变量int g_Column_Count=7; //列表的个数</p>
+<p><img src="https://s2.loli.net/2022/04/07/fNjlEcgLYiHpx56.png"></p>
+<p>7.在initList中写入加入列表列名称的代码并解释:</p>
+<pre><code> for (int i = 0; i &lt; g_Column_Count; i++)
+&#123;
+    m_CList_Online.InsertColumn(i, g_Column_Data[i].title,g_Column_Data[i].nWidth);
+&#125;</code></pre>
+<p><img src="https://s2.loli.net/2022/04/08/3h2bHCqJBLTdQY9.png"></p>
+<p>我这里会报错，是因为使用了uncode字符集，需要修改为使用多字节字符集</p>
+<p><img src="https://s2.loli.net/2022/04/08/WkTnhIuSazoYs6Z.png"></p>
+<p><img src="https://s2.loli.net/2022/04/08/YZQOUBiDc8HqvWf.png"></p>
+<pre><code>int InsertColumn(
+                int nCol,                  //列的顺序
+                LPCTSTR lpszColumnHeading, //列的名字
+                int nFormat = LVCFMT_LEFT,  //列对齐的方式 LVCFMT_LEFT, LVCFMT_RIGHT,LVCFMT_CENTER
+                int nWidth = -1,            //列的宽度
+                int nSubItem = -1           //与之联系的子条目 默认为-1 我们不用写
+                );</code></pre>
+<p>再看一下InsertColumn ，传入的参数分别是顺序，名字，对齐方式 ，宽度</p>
+<p>8.在OnInitDialog中写入InitList()</p>
+<p><img src="https://s2.loli.net/2022/04/08/GsYkU6KASh8MiOQ.png"></p>
+<p>9.改变列表控件的属性 ICon  改为Report</p>
+<p><img src="https://s2.loli.net/2022/04/08/31zbUCPuqNsEglw.png"></p>
+<p>10.同样的方法改动日志消息的列表控件看操作</p>
+<pre><code>  //变量声明
+   int g_Column_Count_Online=7; //列表的个数
+
+COLUMNSTRUCT g_Column_Data_Message[] = 
+&#123;
+    &#123;&quot;信息类型&quot;,        68    &#125;,
+    &#123;&quot;时间&quot;,            100    &#125;,
+    &#123;&quot;信息内容&quot;,        660    &#125;
+&#125;;
+
+
+//InitList
+
+for (int i = 0; i &lt; g_Column_Message; i++)
+    &#123;
+        m_CList_Message.InsertColumn(i, g_Column_Data_Message[i].title,LVCFMT_CENTER,g_Column_Data_Message[i].nWidth);
+    &#125;</code></pre>
+<p>11.改变列表控件的属性 ICon  改为Report</p>
+<h1 id="1-3-列表的列宽度支持伸缩"><a href="#1-3-列表的列宽度支持伸缩" class="headerlink" title="1.3 列表的列宽度支持伸缩"></a>1.3 列表的列宽度支持伸缩</h1><p>1.CListCtrl  SetColumnWidth   查看MSDN<br>             BOOL SetColumnWidth(<br>                             int nCol,             //列索引<br>                             int cx                //列宽度<br>             );</p>
+<p>2.声明列的总宽度:</p>
+<pre><code>        int g_Column_Online_Width=0;  //列总宽度</code></pre>
+<p><img src="https://s2.loli.net/2022/04/08/HCIDbnodrX81jMx.png"></p>
+<p>3.得到列的总宽度 initlist中:</p>
+<pre><code>       g_Column_Online_Width+=g_Column_Online_Data[i].nWidth;       //得到总宽度</code></pre>
+<p><img src="https://s2.loli.net/2022/04/08/H8MpOYorKimk2jt.png"></p>
+<p>4.在OnSize 添加代码:</p>
+<pre><code>      double dcx=cx;     //对话框的总宽度
+
+      for(int i=0;i&lt;g_Column_Online_Count;i++)&#123;                   //遍历每一个列
+        double dd=g_Column_Online_Data[i].nWidth;     //得到当前列的宽度
+        dd/=g_Column_Online_Width;                    //看一看当前宽度占总长度的几分之几
+        dd*=dcx;                                       //用原来的长度乘以所占的几分之几得到当前的宽度
+        int lenth=dd;                                   //转换为int 类型
+        m_CList_Online.SetColumnWidth(i,(lenth));        //设置当前的宽度
+    &#125;</code></pre>
+<p><img src="https://s2.loli.net/2022/04/08/EP1k6xIysCfbm8K.png"></p>
+<p>5.解释为什么用double</p>
+<pre><code>          double   0.1        int 0 
+            90.23232</code></pre>
+<p>6.改变日志的列表宽度(与之前相同)</p>
+<pre><code>  (1)int g_Column_Message_Width = 0;  //列总宽度
+   (2)g_Column_Message_Width += g_Column_Data_Message[i].nWidth;       //得到总宽度
+
+
+   for (int i = 0;i &lt; g_Column_Message;i++) &#123;                   //遍历每一个列
+            double dd = g_Column_Data_Message[i].nWidth;     //得到当前列的宽度
+            dd /= g_Column_Message_Width;                    //看一看当前宽度占总长度的几分之几
+            dd *= dcx;                                       //用原来的长度乘以所占的几分之几得到当前的宽度
+            int lenth = dd;                                   //转换为int 类型
+            m_CList_Message.SetColumnWidth(i, (lenth));        //设置当前的宽度
+        &#125;</code></pre>
+<h1 id="1-4-列表中添加条目"><a href="#1-4-列表中添加条目" class="headerlink" title="1.4 列表中添加条目"></a>1.4 列表中添加条目</h1><p>1.CListCtrl    </p>
+<pre><code>           InsertItem  插入条目
+           int InsertItem(
+                     int nItem,              //插入哪一行
+                     LPCTSTR lpszItem        //该行0列显示的字符
+           );
+
+          SetItemText         设置哪个列的字符
+          BOOL SetItemText(
+                      int nItem,                   //改动那个行
+                      int nSubItem,                //该行中那个子列
+                      LPCTSTR lpszText             //要设置的字符
+          );</code></pre>
+<p>2.列表设计思路:</p>
+<pre><code>         (1)服务端上线后要显示在列表中，这样有一个统一的函数来处理会使代码更加简洁。
+
+         (2)消息显示分为成功失败两种，还要在其中显示消息产生的时间，这样也应该有一个统一的函数来处理。</code></pre>
+<p>3.上线列表添加处理:</p>
+<pre><code>void CPCRemoteDlg::AddList(CString strIP, CString strAddr, CString strPCName, CString strOS, CString strCPU, CString strVideo, CString strPing)
+&#123;
+    m_CList_Online.InsertItem(0,strIP);           //默认为0行  这样所有插入的新列都在最上面
+    m_CList_Online.SetItemText(0,ONLINELIST_ADDR,strAddr);      //设置列的显示字符   这里 ONLINELIST_ADDR等 为第二节课中的枚举类型 用这样的方法
+    m_CList_Online.SetItemText(0,ONLINELIST_COMPUTER_NAME,strPCName); //解决问题会避免以后扩展时的冲突
+    m_CList_Online.SetItemText(0,ONLINELIST_OS,strOS); 
+    m_CList_Online.SetItemText(0,ONLINELIST_CPU,strCPU);
+    m_CList_Online.SetItemText(0,ONLINELIST_VIDEO,strVideo);
+    m_CList_Online.SetItemText(0,ONLINELIST_PING,strPing); 
+&#125;</code></pre>
+<p>在类视图CMFghostDlg中添加函数AddList ，并设置参数</p>
+<p><img src="https://s2.loli.net/2022/04/09/iEhekLbNM5ZuAYg.png"></p>
+<p>在资源管理器CMFCghostDlg中的AddList设置函数体</p>
+<p><img src="https://s2.loli.net/2022/04/09/iQPMCouB1mKV53l.png"></p>
+<p>4.添加日志消息的处理:</p>
+<pre><code>// show msg 
+void CPCRemoteDlg::ShowMessage(bool bIsOK, CString strMsg)
+&#123;
+    CString strIsOK,strTime;
+    CTime t=CTime::GetCurrentTime();
+    strTime=t.Format(&quot;%H:%M:%S&quot;);
+    if (bIsOK)
+    &#123;
+        strIsOK=&quot;执行成功&quot;;
+    &#125;else&#123;
+        strIsOK=&quot;执行失败&quot;;
+    &#125;
+     m_CList_Message.InsertItem(0,strIsOK);
+     m_CList_Message.SetItemText(0,1,strTime);
+     m_CList_Message.SetItemText(0,2,strMsg);
+&#125;</code></pre>
+<p>在类视图CMFghostDlg中添加函数ShowMessage ，并设置参数</p>
+<p><img src="https://s2.loli.net/2022/04/09/UL7KifCmHzEW681.png"></p>
+<p>在资源管理器CMFCghostDlg中的ShowMessage设置函数体</p>
+<p><img src="https://s2.loli.net/2022/04/09/dXDowiTUIMcug2L.png"></p>
+<p>5.添加伪上线，和日志的测试代码,在没有加入gh0st传输内核之前是要自己测试的，所以要加入一个用于测试的函数:</p>
+<pre><code>void CPCRemoteDlg::Test(void)
+&#123;
+    AddList(&quot;192.168.0.1&quot;,&quot;本机局域网&quot;,&quot;Lang&quot;,&quot;Windows7&quot;,&quot;2.2GHZ&quot;,&quot;有&quot;,&quot;123232&quot;);
+    ShowMessage(true,&quot;软件初始化成功...&quot;);
+&#125;</code></pre>
+<p><img src="https://s2.loli.net/2022/04/09/sLc6w5Xjr8PIM9N.png"></p>
+<p>  然后在OnInitDialog  中添加:</p>
+<pre><code>Test();</code></pre>
+<p><img src="https://s2.loli.net/2022/04/09/AwPYzoeFSOEL4im.png"></p>
+<p>6.点击时整个列都是选中状态</p>
+<pre><code> InitList():中加入代码:
+   m_CList_Online.SetExtendedStyle(LVS_EX_FULLROWSELECT);
+
+   m_CList_Message.SetExtendedStyle(LVS_EX_FULLROWSELECT);</code></pre>
+<p><img src="https://s2.loli.net/2022/04/09/TSfY6GxaLEzcKq9.png"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">ME_dition</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://example.com/2022/04/07/%E8%BF%9C%E6%8E%A7ghost/">http://example.com/2022/04/07/%E8%BF%9C%E6%8E%A7ghost/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2022/03/21/BUUCTF%E7%AC%AC%E4%BA%8C%E9%A1%B5/"><img class="next-cover" src="https://i.loli.net/2021/01/30/IyhEQRXAS83oUtH.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">buuctf&amp;&amp;攻防世界</div></div></a></div></nav></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="/null" onerror="this.onerror=null;this.src='/img/logo.jpg'" alt="avatar"/><div class="author-info__name">ME_dition</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">24</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div></div><div class="card-widget card-announcement"><div class="card-content"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>Announcement</span></div><div class="announcement_content">welcome to my world</div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="card-content"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-1-%E5%88%9B%E5%BB%BA%E7%AA%97%E5%8F%A3"><span class="toc-number">1.</span> <span class="toc-text">1.1 创建窗口</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-2-%E6%B7%BB%E5%8A%A0%E5%88%97%E8%A1%A8%E4%B8%AD%E7%9A%84%E5%88%97%E5%90%8D"><span class="toc-number">2.</span> <span class="toc-text">1.2 添加列表中的列名</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-3-%E5%88%97%E8%A1%A8%E7%9A%84%E5%88%97%E5%AE%BD%E5%BA%A6%E6%94%AF%E6%8C%81%E4%BC%B8%E7%BC%A9"><span class="toc-number">3.</span> <span class="toc-text">1.3 列表的列宽度支持伸缩</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-4-%E5%88%97%E8%A1%A8%E4%B8%AD%E6%B7%BB%E5%8A%A0%E6%9D%A1%E7%9B%AE"><span class="toc-number">4.</span> <span class="toc-text">1.4 列表中添加条目</span></a></li></ol></div></div></div><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/04/07/%E8%BF%9C%E6%8E%A7ghost/" title="No title"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="No title"/></a><div class="content"><a class="title" href="/2022/04/07/%E8%BF%9C%E6%8E%A7ghost/" title="No title">No title</a><time datetime="2022-04-07T14:32:37.280Z" title="Created 2022-04-07 22:32:37">2022-04-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/21/BUUCTF%E7%AC%AC%E4%BA%8C%E9%A1%B5/" title="buuctf&amp;&amp;攻防世界"><img src="https://i.loli.net/2021/01/30/IyhEQRXAS83oUtH.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="buuctf&amp;&amp;攻防世界"/></a><div class="content"><a class="title" href="/2022/03/21/BUUCTF%E7%AC%AC%E4%BA%8C%E9%A1%B5/" title="buuctf&amp;&amp;攻防世界">buuctf&amp;&amp;攻防世界</a><time datetime="2022-03-21T15:10:57.539Z" title="Created 2022-03-21 23:10:57">2022-03-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/16/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E/" title="No title"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="No title"/></a><div class="content"><a class="title" href="/2022/03/16/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E/" title="No title">No title</a><time datetime="2022-03-16T15:39:11.539Z" title="Created 2022-03-16 23:39:11">2022-03-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/16/tcathe_%E4%BF%AE%E6%94%B9fd/" title="tcache结构体"><img src="https://i.loli.net/2021/11/16/VmMlbYZgdGvQkCw.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="tcache结构体"/></a><div class="content"><a class="title" href="/2022/03/16/tcathe_%E4%BF%AE%E6%94%B9fd/" title="tcache结构体">tcache结构体</a><time datetime="2022-03-16T10:19:57.832Z" title="Created 2022-03-16 18:19:57">2022-03-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/16/CSRF&amp;SSRF/" title="No title"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="No title"/></a><div class="content"><a class="title" href="/2022/03/16/CSRF&amp;SSRF/" title="No title">No title</a><time datetime="2022-03-16T08:09:39.810Z" title="Created 2022-03-16 16:09:39">2022-03-16</time></div></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg)"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By ME_dition</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>
