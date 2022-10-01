@@ -1,0 +1,1048 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>极客大挑战wp | ME_dition</title><meta name="author" content="ME_dition"><meta name="copyright" content="ME_dition"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="web题1.朋友的学妹打开网址，右键鼠标，打开源文件，发现 &lt;!--flag&#x3D;U1lDe0YxQF80c19oNExwZnVsbGxsbGx9--&gt; 用网站base64解码得到flagSYC{F1@_4s_h4Lpfullllll} 2.EZwww打开网址，说这个网站已经备份了，直接在网址后面加上&#x2F;www.zip，发现开始下载一个压缩包，解压，有两个文件，一个是假的flag，一个是in">
+<meta property="og:type" content="article">
+<meta property="og:title" content="极客大挑战wp">
+<meta property="og:url" content="http://example.com/2022/10/01/ctf01/index.html">
+<meta property="og:site_name" content="ME_dition">
+<meta property="og:description" content="web题1.朋友的学妹打开网址，右键鼠标，打开源文件，发现 &lt;!--flag&#x3D;U1lDe0YxQF80c19oNExwZnVsbGxsbGx9--&gt; 用网站base64解码得到flagSYC{F1@_4s_h4Lpfullllll} 2.EZwww打开网址，说这个网站已经备份了，直接在网址后面加上&#x2F;www.zip，发现开始下载一个压缩包，解压，有两个文件，一个是假的flag，一个是in">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2020/11/30/xv5lFdpMEzkDRi1.jpg">
+<meta property="article:published_time" content="2022-10-01T09:33:18.632Z">
+<meta property="article:modified_time" content="2020-11-30T15:58:31.053Z">
+<meta property="article:author" content="ME_dition">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/11/30/xv5lFdpMEzkDRi1.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2022/10/01/ctf01/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="yandex-verification" content="{&quot;theme_color&quot;:{&quot;enable&quot;:true,&quot;main&quot;:&quot;#49B1F5&quot;,&quot;paginator&quot;:&quot;#00c4b6&quot;,&quot;button_hover&quot;:&quot;#FF7242&quot;,&quot;text_selection&quot;:&quot;#00c4b6&quot;,&quot;link_color&quot;:&quot;#99a9bf&quot;,&quot;meta_color&quot;:&quot;#858585&quot;,&quot;hr_color&quot;:&quot;#A4D8FA&quot;,&quot;code_foreground&quot;:&quot;#F47466&quot;,&quot;code_background&quot;:&quot;rgba(27, 31, 35, .05)&quot;,&quot;toc_color&quot;:&quot;#00c4b6&quot;,&quot;blockquote_padding_color&quot;:&quot;#49b1f5&quot;,&quot;blockquote_background_color&quot;:&quot;#49b1f5&quot;}}"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2020-11-30 23:58:31'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/atom.xml" title="ME_dition" type="application/atom+xml">
+</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/null" onerror="onerror=null;src='/img/logo.jpg'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">26</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> List</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> music</span></a></li><li><a class="site-page" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> Gallery</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> movies</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://i.loli.net/2020/11/30/xv5lFdpMEzkDRi1.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">ME_dition</a></span><span id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> List</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> music</span></a></li><li><a class="site-page" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> Gallery</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> movies</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><h1 class="post-title">极客大挑战wp</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2022-10-01T09:33:18.632Z" title="Created 2022-10-01 17:33:18">2022-10-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2020-11-30T15:58:31.053Z" title="Updated 2020-11-30 23:58:31">2020-11-30</time></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="web题"><a href="#web题" class="headerlink" title="web题"></a>web题</h2><h3 id="1-朋友的学妹"><a href="#1-朋友的学妹" class="headerlink" title="1.朋友的学妹"></a>1.朋友的学妹</h3><p>打开网址，右键鼠标，打开源文件，发现</p>
+<pre><code>&lt;!--flag=U1lDe0YxQF80c19oNExwZnVsbGxsbGx9--&gt;</code></pre>
+<p>用网站base64解码得到flag<br>SYC{F1@_4s_h4Lpfullllll}</p>
+<h3 id="2-EZwww"><a href="#2-EZwww" class="headerlink" title="2.EZwww"></a>2.EZwww</h3><p>打开网址，说这个网站已经备份了，直接在网址后面加上/<a target="_blank" rel="noopener" href="http://www.zip,发现开始下载一个压缩包,解压,有两个文件,一个是假的flag,一个是index.php,把index.php的后缀改为txt.打开发现/">www.zip，发现开始下载一个压缩包，解压，有两个文件，一个是假的flag，一个是index.php，把index.php的后缀改为txt。打开发现</a></p>
+<pre><code>&lt;html&gt;
+ &lt;head&gt;
+  &lt;title&gt;Lola&#39;s website1.0&lt;/title&gt;
+ &lt;/head&gt;
+ &lt;body&gt;
+ &lt;?php echo &#39;&lt;h1&gt;welcome to my website&lt;/h1&gt;&#39;; ?&gt;
+ &lt;?php echo &#39;&lt;p&gt;i will never forget to backup my website......&lt;/p&gt;&#39;; ?&gt;
+ &lt;?php echo &#39;&lt;img src=&quot;img/lola.gif&quot; alt=&quot;welcome~&quot;/&gt;&#39;; ?&gt;
+ &lt;/body&gt;
+&lt;/html&gt;
+&lt;?php
+$key1 = $_POST[&#39;a&#39;];
+$key2 = base64_decode(&#39;c3ljbDB2ZXI=&#39;);
+if($key1 === $key2)
+&#123;
+    //this is a true flag
+echo &#39;&lt;p&gt;SYC&#123;xxxxxxxxxxxxxxxxxx&#125;&lt;/p&gt;&#39;;
+&#125;
+?&gt;</code></pre>
+<p>说以post提交a，然后要key1等于key2，key2还base64编码了，解码得到sycl0ver，然后用火狐浏览器（注意要下载一个插件Hackbar）以post提交a=sycl0ver，得到flag  SYC{Backup_1s_4_good_h4bit_l0l}</p>
+<h3 id="3-刘壮的黑页"><a href="#3-刘壮的黑页" class="headerlink" title="3.刘壮的黑页"></a>3.刘壮的黑页</h3><p>这道题主要考post和get两个提交方式，不知道怎么回事，网站打不开了QAQ，反正就是用get方式提交一个东西，一个用post提交一个东西，就会得到flag</p>
+<h3 id="4-Welcome"><a href="#4-Welcome" class="headerlink" title="4.Welcome"></a>4.Welcome</h3><p>打开网站，显示405错误，只不过不是题错了，而是要改用post提交一个东西才会显示一些东西，比如a=’1’，得到<br>     &lt;?php<br>    error_reporting(0);<br>    if ($_SERVER[‘REQUEST_METHOD’] !== ‘POST’) {<br>    header(“HTTP/1.1 405 Method Not Allowed”);<br>    exit();<br>    } else {</p>
+<pre><code>    if (!isset($_POST[&#39;roam1&#39;]) || !isset($_POST[&#39;roam2&#39;]))&#123;
+        show_source(__FILE__);
+    &#125;
+    else if ($_POST[&#39;roam1&#39;] !== $_POST[&#39;roam2&#39;] &amp;&amp; sha1($_POST[&#39;roam1&#39;]) === sha1($_POST[&#39;roam2&#39;]))&#123;
+        phpinfo();  // collect information from phpinfo!
+    &#125;
+&#125; </code></pre>
+<p>再次以post提交roam1[]=1&amp;roam2[]=2，一个绕过方式。会出现一个界面，从中找到一个可以位置    /f1444aagggg.php，在网址后面加上去，得到</p>
+<pre><code>Not Found
+
+The requested URL was not found on this server.
+Apache/2.4.38 (Debian) Server at 49.234.224.119 Port 8000</code></pre>
+<p>改为post请求发送，在消息头里面看到flag</p>
+<pre><code>SYC&#123;w31c0m3_t0_5yc_r0@m_php1&#125;</code></pre>
+<h3 id="5-我是大黑客"><a href="#5-我是大黑客" class="headerlink" title="5.我是大黑客"></a>5.我是大黑客</h3><p>这道题考的应该是一句话木马，打开网站，有提示说留下了一个备份文件，在网址后面加上/liuzhuang.php.bak。开始下载文件，把文件后缀名改为txt，打开，得到</p>
+<pre><code>&lt;?php
+eval($_POST[&#39;liuzhuang&#39;]);
+
+//谁是大恶人 那必定是我liuzhuang
+//当你的服务器看到 0xliuzhuang 就知道要买台新机器了
+?&gt;</code></pre>
+<p>用蚁剑</p>
+<p>输入URL，密码为上面的liuzhuang。得到flag</p>
+<pre><code>SYC&#123;1iuzHuang_yyd_G0d!&#125;</code></pre>
+<h3 id="6-ezbypass"><a href="#6-ezbypass" class="headerlink" title="6.ezbypass"></a>6.ezbypass</h3><pre><code>Please use a GET request to pass in the variables a and b, compare them with strcmp and let strcmp return a value of NULL.
+
+Note that a and b cannot be equal. </code></pre>
+<p>请使用GET请求传入变量a和b，将它们与strcmp进行比较，并让strcmp返回NULL值。<br>注意a和b不能相等。用strcmp函数的漏洞绕过</p>
+<p>以get方式提交?a[ ]=2&amp;b[ ]=4，然后得到</p>
+<pre><code>OKOK,You got the first step.
+Please POST a variable c that is not a number to make it equal to 123 </code></pre>
+<p>好吧，你迈出了第一步。请发布一个不是数字的变量c，使其等于123。开始我以为用ASCLL码就可以了，不行，用位运算使c=123，也不行。最后发现是php弱类型绕过。post提交c=123a，得到flag</p>
+<pre><code>nice!!!You got it
+SYC&#123;php_4s_so_funny&#125; </code></pre>
+<h2 id="re题目"><a href="#re题目" class="headerlink" title="re题目"></a>re题目</h2><h3 id="1-No-RE-no-gain"><a href="#1-No-RE-no-gain" class="headerlink" title="1.No RE no gain"></a>1.No RE no gain</h3><p>下载文件，直接拖到IDA里面，shift+f12查看字符串，有很多假的flag，例如</p>
+<pre><code>.rdata:0040400C    0000001F    C    SYC&#123;5ay_He1lo_tH3_Re_W0rld!!!&#125;
+.rdata:0040402C    0000001F    C    SYC&#123;Say_h3llo_th3_rE_World!!!&#125;
+.rdata:0040404C    0000001F    C    SYC&#123;s4y_he110_The_RE_w0r1d!!!&#125;
+.rdata:0040406C    0000001F    C    SYC&#123;S4y_He11o_th3_RE_World!!!&#125;
+.rdata:0040408C    0000001F    C    SYC&#123;s4y_He110_The_rE_w0r1d~~~&#125;
+.rdata:004040AC    0000001F    C    SYC&#123;say_h3ll0_Th3_RE_w0rld!!!&#125;
+.rdata:004040CC    0000001F    C    SYC&#123;s4y_he110_th3_rE_w0rld~~~&#125;
+.rdata:004040EC    0000001F    C    SYC&#123;s4y_he11o_The_r3_wor1d!!!&#125;
+.rdata:0040410C    0000001F    C    SYC&#123;Say_He110_th3_r3_w0r1d!!!&#125;
+.rdata:0040412C    0000001F    C    SYC&#123;say_He11o_The_rE_wor1d!!!&#125;
+.rdata:0040414C    0000001F    C    SYC&#123;say_he11o_the_r3_Wor1d~~~&#125;
+.rdata:0040416C    0000001F    C    SYC&#123;Say_He110_The_rE_w0r1d~~~&#125;
+.rdata:0040418C    0000001F    C    SYC&#123;S4y_H3110_th3_RE_World!!~&#125;</code></pre>
+<p>真正的flag在，.rdata:00404277    0000001A    C    Great! Here is your flag:，点进去，找到位置ctrl+x，到真正的flag处。得到</p>
+<pre><code>SYC&#123;S4y_He11o_th3_RE_World!!!&#125;</code></pre>
+<h3 id="2-我真不会写驱动！"><a href="#2-我真不会写驱动！" class="headerlink" title="2.我真不会写驱动！"></a>2.我真不会写驱动！</h3><p>不知道是不是题有问题，直接拖到IDA里面，shift+f12查看字符串，就有了flag</p>
+<pre><code>SYC&#123;First_Win64_DRIVER&#125;</code></pre>
+<h3 id="3-WhatsApk"><a href="#3-WhatsApk" class="headerlink" title="3.WhatsApk"></a>3.WhatsApk</h3><p>APK实际上就是一个备份文件，解压后，得到一些文件，网上搜一搜apk文件结构，了解了解。</p>
+<p>取巧做法将全部文件后缀名改为txt，然后一个一个文件的搜索SYC，得到flag</p>
+<pre><code>SYC&#123;WelC0me_to_android!&#125;</code></pre>
+<p>实际上估计应该是要用jed软件，然后在jeb里面搜索，下一道题就会用到。</p>
+<h3 id="4-HelloAndroid"><a href="#4-HelloAndroid" class="headerlink" title="4.HelloAndroid"></a>4.HelloAndroid</h3><p>首先安装jed，挺难找软件的，安好了还要安个Java。</p>
+<p>安装好了，把class.dex文件直接拖到jeb里面，然后点字符串，搜索SYC,得到</p>
+<pre><code>SYC&#123;Android_in_Java_is_easy!&#125;</code></pre>
+<h3 id="5-re00"><a href="#5-re00" class="headerlink" title="5.re00"></a>5.re00</h3><p>考点：异或<br>要先到IDA里面看，shift+12,点进去可以的地方，ctrl+x，然后f5，看伪代码，关键点为</p>
+<pre><code>if ( (char)(buf[i] ^ 0x44) != byte_4060[i] )//buf[i]就是输入的flag，然后和0x44进行了一个异或运算，得到了byte_4060[i]。</code></pre>
+<p>点开byte_4060[i]，其值为</p>
+<pre><code>byte_4060       db 17h, 1Dh, 7, 3Fh, 37h, 2Dh, 29h, 34h, 28h, 21h, 1Bh
+.data:0000000000004060                                         ; DATA XREF: main+93↑o
+.data:0000000000004060                 db 37h, 2Dh, 29h, 34h, 28h, 21h, 1Bh, 3Ch, 2Bh, 3 dup(36h)
+.data:0000000000004060                 db 1Bh, 36h, 2Dh, 23h, 2Ch, 30h, 2 dup(7Bh), 39h</code></pre>
+<p>需要知道dup代表的是什么，然后异或回去就行<br>脚本如下</p>
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+/* run this program using the console pauser or add your own getch, system(&quot;pause&quot;) or input loop */
+
+int main(int argc, char *argv[]) &#123;
+    signed int i; // [rsp+8h] [rbp-48h]
+    int buf[32]; // [rsp+10h] [rbp-40h]
+    int byte_4060[32]=&#123;0x17,0x1D,0x07,0x3F,0x37,0x2D,0x29,0x34,0x28,0x21,0x1B,0x37,0x2D,0x29,0x34,0x28,0x21,0x1B,0x3C,0x2B,0x36,0x36,0x36,0x1B,0x36,0x2D,0x23,0x2C,0x30,0x7B,0x7B,0x39&#125;;
+//从IDA中得到byte_4060的16进制数串 后面有一串字符 但是不像flag，发现if里面用异或运算编码了，写脚本来解码。
+  for ( i = 0; i &lt;= 31; ++i )
+  &#123;
+     buf[i]=byte_4060[i] ^0x44;//解码
+
+  &#125;
+
+  for(i=0;i&lt;=31;i++)
+  &#123;
+      printf(&quot;%x &quot;,buf[i]);//可改为printf(&quot;%c&quot;,buf[i]);直接得到字符串
+  &#125;
+  printf(&quot;\n&quot;);
+  //得到解码后的16进制数串，将其转换为字符串，得到flag。
+  puts(&quot;yes! you get it!&quot;);
+  return 0LL;
+&#125;</code></pre>
+<p>得到flag</p>
+<pre><code>SYC&#123;simple_simple_xorrr_right??&#125;</code></pre>
+<h3 id="6-maze"><a href="#6-maze" class="headerlink" title="6.maze"></a>6.maze</h3><p>首先还是用IDA打开，shift+12搜索字符串，发现tttttttttttttttql!!!十分可疑，点进去，Ctrl+x进入主函数，F5生成伪代码，如下</p>
+<pre><code>int sub_401A10()
+&#123;
+  int v0; // ecx
+  int v1; // eax
+  int v2; // esi
+  char *v3; // ecx
+  unsigned int v4; // kr00_4
+  int v5; // eax
+  char v6; // cl
+  char v8[108]; // [esp+8h] [ebp-70h]
+  char v9[108]; // [esp+9h] [ebp-6Fh]
+
+  sub_402400(dword_431974);
+  sub_401CB0(v0, &quot;give me your way:&quot;);
+  sub_406FD0(v8, 0, 100);
+  v1 = sub_409A97(0);
+  sub_409E54(v1);
+  sub_401100(&quot;%64s&quot;, (unsigned int)v8);
+  v2 = 0;
+  v3 = v9;
+  v4 = strlen(v8);
+  if ( v4 )
+  &#123;
+v5 = dword_431960;
+while ( 1 )
+&#123;
+  v6 = v8[v2];
+  if ( v6 == 97 )
+break;
+  switch ( v6 )
+  &#123;
+case 119:
+  v5 -= 31;
+  goto LABEL_11;
+case 115:
+  v5 += 31;
+  goto LABEL_11;
+case 100:
+  ++v5;
+  goto LABEL_11;
+  &#125;
+LABEL_12:
+  LOBYTE(v3) = byte_42E820[v5];
+  if ( (_BYTE)v3 == 111 )
+  &#123;
+sub_401CB0(v3, &quot;Ur not on the way!!&quot;);
+sub_4099B9(0);
+LABEL_17:
+sub_401CB0(v3, &quot;ttttttttttttttttttttql!!&quot;);
+sub_4099B9(0);
+JUMPOUT(*(_DWORD *)algn_401B14);
+  &#125;
+  if ( (_BYTE)v3 == 69 )
+goto LABEL_17;
+  if ( ++v2 &gt;= v4 )
+return 0;
+&#125;
+--v5;
+LABEL_11:
+dword_431960 = v5;
+goto LABEL_12;
+  &#125;
+  return 0;
+&#125;</code></pre>
+<p>百度搜索：ctf 迷宫问题，<a target="_blank" rel="noopener" href="https://wiki.x10sec.org/reverse/maze/maze/" title="maze ctf">https://wiki.x10sec.org/reverse/maze/maze/</a>发现与这道题有相识之处，从而知道</p>
+<pre><code>.rdata:0042E821&#39;__________ooooo_____o________o_ooooooooo__ooo__ooo_oooooooooo_ooo&#39;
+.rdata:0042E821 db &#39;ooooooo__o__oooo_oooooooooo________oooo___ooooo_ooooooooooooooooo&#39;
+.rdata:0042E821 db &#39;_oooooooooooo_ooooooooooooooooo_ooooo_oooooo_ooooooooooooooooo_oo&#39;
+.rdata:0042E821 db &#39;ooo_oooooo_oooooooooos_______ooooo_oooooo__________Eooooooooooooo&#39;
+.rdata:0042E821 db &#39;oooooooooooooooooo&#39;,0</code></pre>
+<p>代表的是迷宫，用shift+e调出迷宫，发现迷宫数据，但是需要知道迷宫的长宽，我的做法是先调为16进制，通过拉扯边框的大小使里面数据成为一个矩形，发现变成9*31时恰好是个矩形！！！！，并且按照5F走迷宫的确有一条路。</p>
+<p>再看主函数，发现</p>
+<pre><code>v5 -= 31;
+v5 += 31;</code></pre>
+<p>中的31相当之可疑，发现这原来是1维数组变2维数组，每31个就换行。16进制的图十分不好看，换一下<br>    #include&lt;stdio.h&gt;</p>
+<pre><code>int main(void)
+&#123;
+    int i,j;
+    int a[9][31]=&#123;   95,  95,  95,  95,  95,  95,  95,  95,  95,  95, 
+  111, 111, 111, 111, 111,  95,  95,  95,  95,  95, 
+  111,  95,  95,  95,  95,  95,  95,  95,  95, 111, 
+   95, 111, 111, 111, 111, 111, 111, 111, 111, 111, 
+   95,  95, 111, 111, 111,  95,  95, 111, 111, 111, 
+   95, 111, 111, 111, 111, 111, 111, 111, 111, 111, 
+  111,  95, 111, 111, 111, 111, 111, 111, 111, 111, 
+  111, 111,  95,  95, 111,  95,  95, 111, 111, 111, 
+  111,  95, 111, 111, 111, 111, 111, 111, 111, 111, 
+  111, 111,  95,  95,  95,  95,  95,  95,  95,  95, 
+  111, 111, 111, 111,  95,  95,  95, 111, 111, 111, 
+  111, 111,  95, 111, 111, 111, 111, 111, 111, 111, 
+  111, 111, 111, 111, 111, 111, 111, 111, 111, 111, 
+   95, 111, 111, 111, 111, 111, 111, 111, 111, 111, 
+  111, 111, 111,  95, 111, 111, 111, 111, 111, 111, 
+  111, 111, 111, 111, 111, 111, 111, 111, 111, 111, 
+  111,  95, 111, 111, 111, 111, 111,  95, 111, 111, 
+  111, 111, 111, 111,  95, 111, 111, 111, 111, 111, 
+  111, 111, 111, 111, 111, 111, 111, 111, 111, 111, 
+  111, 111,  95, 111, 111, 111, 111, 111,  95, 111, 
+  111, 111, 111, 111, 111,  95, 111, 111, 111, 111, 
+  111, 111, 111, 111, 111, 111, 115,  95,  95,  95, 
+   95,  95,  95,  95, 111, 111, 111, 111, 111,  95, 
+  111, 111, 111, 111, 111, 111,  95,  95,  95,  95, 
+   95,  95,  95,  95,  95,  95,  69, 111, 111, 111, 
+  111, 111, 111, 111, 111, 111, 111, 111, 111, 111, 
+  111, 111, 111, 111, 111, 111, 111, 111, 111, 111, 
+  111, 111, 111, 111, 111, 111, 111, 111,0 &#125;;
+
+  for(i=0;i&lt;9;i++)
+  &#123;
+      for(j=0;j&lt;31;j++)
+      &#123;
+          printf(&quot;%c&quot;,a[i][j]);
+    &#125;
+    printf(&quot;\n&quot;);
+  &#125;
+
+
+&#125; </code></pre>
+<p>发现运行后不对</p>
+<pre><code>__________ooooo_____o________o_
+ooooooooo__ooo__ooo_oooooooooo_
+oooooooooo__o__oooo_oooooooooo_
+_______oooo___ooooo_ooooooooooo
+oooooo_oooooooooooo_ooooooooooo
+oooooo_ooooo_oooooo_ooooooooooo
+oooooo_ooooo_oooooo_oooooooooos
+_______ooooo_oooooo__________Eo
+oooooooooooooooooooooooooooooo
+
+--------------------------------
+Process exited after 0.1652 seconds with return value 0
+请按任意键继续. . .</code></pre>
+<p>迷宫怎么会缺了一个角。观察地图，最右边那一列如果移到左边不就感觉更好了，感觉应该是少了一个，添上去，c代码如下<br>    #include&lt;stdio.h&gt;</p>
+<pre><code>int main(void)
+&#123;
+    int i,j;
+    int a[9][31]=&#123;   95,95,  95,  95,  95,  95,  95,  95,  95,  95,  95, 
+  111, 111, 111, 111, 111,  95,  95,  95,  95,  95, 
+  111,  95,  95,  95,  95,  95,  95,  95,  95, 111, 
+   95, 111, 111, 111, 111, 111, 111, 111, 111, 111, 
+   95,  95, 111, 111, 111,  95,  95, 111, 111, 111, 
+   95, 111, 111, 111, 111, 111, 111, 111, 111, 111, 
+  111,  95, 111, 111, 111, 111, 111, 111, 111, 111, 
+  111, 111,  95,  95, 111,  95,  95, 111, 111, 111, 
+  111,  95, 111, 111, 111, 111, 111, 111, 111, 111, 
+  111, 111,  95,  95,  95,  95,  95,  95,  95,  95, 
+  111, 111, 111, 111,  95,  95,  95, 111, 111, 111, 
+  111, 111,  95, 111, 111, 111, 111, 111, 111, 111, 
+  111, 111, 111, 111, 111, 111, 111, 111, 111, 111, 
+   95, 111, 111, 111, 111, 111, 111, 111, 111, 111, 
+  111, 111, 111,  95, 111, 111, 111, 111, 111, 111, 
+  111, 111, 111, 111, 111, 111, 111, 111, 111, 111, 
+  111,  95, 111, 111, 111, 111, 111,  95, 111, 111, 
+  111, 111, 111, 111,  95, 111, 111, 111, 111, 111, 
+  111, 111, 111, 111, 111, 111, 111, 111, 111, 111, 
+  111, 111,  95, 111, 111, 111, 111, 111,  95, 111, 
+  111, 111, 111, 111, 111,  95, 111, 111, 111, 111, 
+  111, 111, 111, 111, 111, 111, 115,  95,  95,  95, 
+   95,  95,  95,  95, 111, 111, 111, 111, 111,  95, 
+  111, 111, 111, 111, 111, 111,  95,  95,  95,  95, 
+   95,  95,  95,  95,  95,  95,  69, 111, 111, 111, 
+  111, 111, 111, 111, 111, 111, 111, 111, 111, 111, 
+  111, 111, 111, 111, 111, 111, 111, 111, 111, 111, 
+  111, 111, 111, 111, 111, 111, 111, 111,&#125;;
+
+  for(i=0;i&lt;9;i++)
+  &#123;
+      for(j=0;j&lt;31;j++)
+      &#123;
+          printf(&quot;%c&quot;,a[i][j]);
+    &#125;
+    printf(&quot;\n&quot;);
+  &#125;
+
+
+&#125;//（注意要把数组中最后的0去掉）</code></pre>
+<p>运行</p>
+<pre><code>___________ooooo_____o________o
+_ooooooooo__ooo__ooo_oooooooooo
+_oooooooooo__o__oooo_oooooooooo
+________oooo___ooooo_oooooooooo
+ooooooo_oooooooooooo_oooooooooo
+ooooooo_ooooo_oooooo_oooooooooo
+ooooooo_ooooo_oooooo_oooooooooo
+s_______ooooo_oooooo__________E
+ooooooooooooooooooooooooooooooo
+
+--------------------------------
+Process exited after 0.07231 seconds with return value 0
+请按任意键继续. . .</code></pre>
+<p>迷宫准备就绪。感觉出题人相当有意思，SYC；迷宫中的s应该代表的是start起点，E应该代表的是end终点。实际上看主函数也可看出终点</p>
+<pre><code>LABEL_17:
+sub_401CB0(v3, &quot;ttttttttttttttttttttql!!&quot;);
+sub_4099B9(0);
+JUMPOUT(*(_DWORD *)algn_401B14);
+  &#125;
+  if ( (_BYTE)v3 == 69 )//如果v3=69，也就是E，跳到LABEL_17，说ttttttttttttttql！！！说明是正确的终点
+goto LABEL_17;</code></pre>
+<p>现在需要做的就是走迷宫，迷宫肯定需要方向，是什么呢？再看主函数</p>
+<pre><code>  v6 = v8[v2];
+  if ( v6 == 97 )//‘a’=97,--v5不就代表向左移动吗
+       --v5;//做了一点改动
+  switch ( v6 )
+  &#123;
+case 119://&#39;199&#39;=w，v5 -= 31不就是向上移动吗
+  v5 -= 31;
+  goto LABEL_11;
+case 115://‘115’=s，  v5 += 31不就是向下移动吗
+  v5 += 31;
+  goto LABEL_11;
+case 100://&#39;100&#39;=d,++5不就表示向右移动吗
+  ++v5;
+  goto LABEL_11;
+  &#125;</code></pre>
+<p>感觉出题人，非常人性化，知道打游戏这几个键最常用QAQ。tqltqltql<br>开始走迷宫，得到flag(注意s和E不算)</p>
+<p>得到flag：SYC{dddddddwwwwaaaaaaawwwddddddddddsdsdsddwdwdwddddsssssssdddddddddd}</p>
+<h3 id="7-Hello-NET"><a href="#7-Hello-NET" class="headerlink" title="7.Hello .NET"></a>7.Hello .NET</h3><h4 id="一-反编译"><a href="#一-反编译" class="headerlink" title="一.反编译"></a>一.反编译</h4><p>文件下载下来是个可执行文件，需要反编译来看代码</p>
+<p>首先下载反编译软件<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/heibai-ma/p/12893654.html">https://www.cnblogs.com/heibai-ma/p/12893654.html</a></p>
+<p>然后看如何反编译<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/ajwqb06628/article/details/102071245?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.compare&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.compare">https://blog.csdn.net/ajwqb06628/article/details/102071245?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.compare&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.compare</a></p>
+<h4 id="二-分析代码"><a href="#二-分析代码" class="headerlink" title="二.分析代码"></a>二.分析代码</h4><p>反编译后得到的关键代码如下(需要自己去在反编译出来的文件里面找找)<br>    public class MainWindow : Window, IComponentConnector<br>    {<br>        internal TextBox InputBox;<br>        internal Button Check_Btn;<br>        internal TextBlock Status;<br>        private bool _contentLoaded;</p>
+<pre><code>    public MainWindow()
+    &#123;
+        this.InitializeComponent();
+    &#125;
+
+    private void Check(object sender, RoutedEventArgs e)
+    &#123;
+        int num;
+        string text = this.InputBox.Text;   //输入一个flag，也是要求的目标
+        List&lt;int&gt; list = new List&lt;int&gt;();   //  https://zhidao.baidu.com/question/539039145.html
+        int[] numArray = new int[] &#123; 
+            0x12, 14, 40, -14, -2, 30, 10, 0x2a, 0x23, 0x30, 0x2b, 0x31, 0x34, 0x48, 0x39, 0x44,
+            0x56, 0x91, 0x73, 0x80, 0x73, 0x56
+        &#125;;//长度为22
+        for (num = 0x63; list.Count &lt; text.Length; num += 2)        //0x63=99，   list.Count &lt; text.Length，意思是要list[num]这个数组的长度和list.text[]数组长度一样，实际上list[num]，text[num]，numArray[num]的长度都要一样，都为22.         
+        &#123;
+            bool flag2 = true;  //布尔变量
+            for (int i = 3; i &lt; num; i += 2)//这个循环就是为了求list[num]这个数组。和求素数基本差不多，有点不一样。
+            &#123;
+                if ((num % i) == 0)
+                &#123;
+                    flag2 = false;
+                    break;
+                &#125;
+            &#125;
+            if (flag2)
+            &#123;
+                list.Add(num);   // 得到list[num]这个下面要用的数组
+            &#125;
+        &#125;
+        bool flag = true;
+        for (num = 0; (num &lt; text.Length) &amp;&amp; (num &lt; numArray.Length); num++)
+        &#123;
+            if ((list[num] - text[num]) != numArray[num])  //  不等于的话，flag=false，就说明错了，说明等于的时候才是对的，意思是flag  text[num]=list[num]-numArray[num]
+            &#123;
+                flag = false;
+                break;
+            &#125;
+        &#125;
+        if ((text.Length == numArray.Length) &amp; flag)
+        &#123;
+            this.Status.Foreground = new SolidColorBrush(Colors.Green);
+            this.Status.Text = &quot;Flag is corrent&quot;;
+        &#125;
+        else
+        &#123;
+            this.Status.Foreground = new SolidColorBrush(Colors.Red);
+            this.Status.Text = &quot;Flag is incorrent&quot;;
+        &#125;
+    &#125;</code></pre>
+<h4 id="三-写脚本"><a href="#三-写脚本" class="headerlink" title="三.写脚本"></a>三.写脚本</h4><p>脚本1</p>
+<pre><code>#include&lt;stdio.h&gt;
+
+int main(void)
+&#123;
+    int num;
+    char a[22]=&#123;0,&#125;;
+    int b[22]=&#123;18,14,40,-14,-2,30,10,42,35,48,43,49,52,72,57,68,86,145,115,128,115,86&#125;;
+    int c[22]=&#123;0,&#125;;
+    int len=100;
+    int flag2,i,j,n; 
+
+    for(num=99,j=0;j&lt;60;num+=2,j++)
+    &#123;
+        n=0;
+        flag2=1;
+        for(i=3;i&lt;num;i+=2)
+        &#123;
+            if(num%i==0)
+            &#123;
+            flag2=0;
+            break;
+            &#125;    
+        &#125;
+
+        if(flag2)
+        &#123;    c[n]=num;
+            printf(&quot;%d &quot;,c[n]);
+            n++;//得到c[]=&#123;101 103 107 109 113 127 131 137 139 149 151 157 163 167 173 179 181 191 193 197 199 211&#125; 
+        &#125;
+//                b[]=&#123;18,14,40,-14,-2,30,10,42,35,48,43,49,52,72,57,68,86,145,115,128,115,86&#125;;
+    &#125;
+
+//    printf(&quot;\n&quot;);
+//    for(num=0;num&lt;22;num++)
+//    &#123;
+//        a[num]=c[num]-b[num];
+//        printf(&quot;%d &quot;,a[num]);
+//     &#125; 
+//    
+//    
+&#125;</code></pre>
+<p>脚本2</p>
+<pre><code>#include&lt;stdio.h&gt;
+int main(void) 
+&#123;
+    int a[22]=&#123;18,14,40,-14,-2,30,10,42,35,48,43,49,52,72,57,68,86,145,115,128,115,86&#125;;
+    int b[22]=&#123;101 ,103 ,107 ,109 ,113 ,127 ,131 ,137 ,139 ,149 ,151 ,157 ,163, 167 ,173 ,179 ,181 ,191 ,193 ,197 ,199 ,211&#125;;
+    int c[22]=&#123;0&#125;;
+    int i;
+
+    for(i=0;i&lt;22;i++)
+    &#123;
+        c[i]=b[i]-a[i];
+        printf(&quot;%c&quot;,c[i]);
+    &#125;
+&#125;</code></pre>
+<p>得到flag<br>SYC{say_hello_to_.NET}</p>
+<h3 id="8-刘壮的BaseXX"><a href="#8-刘壮的BaseXX" class="headerlink" title="8.刘壮的BaseXX"></a>8.刘壮的BaseXX</h3><h4 id="一-调试与代码分析"><a href="#一-调试与代码分析" class="headerlink" title="一.调试与代码分析"></a>一.调试与代码分析</h4><p>拿到exe文件，直接拖到IDA里面看伪代码，如下</p>
+<pre><code>__int64 sub_1400014E0()
+&#123;
+  void *v1; // [rsp+28h] [rbp-B0h]//定义了一个数组
+  signed __int64 v2; // [rsp+30h] [rbp-A8h] //一个整型变量，应该是数组的长度
+  char v3[128]; // [rsp+40h] [rbp-98h]//又定义了一个数组
+
+  memset(v3, 0, sizeof(v3));
+  v1 = (void *)sub_140004EF4(256i64);
+  sub_140003498(aYouMightKnowBa);
+  while ( 1 )
+  &#123;
+    while ( 1 )
+    &#123;
+      sub_140001060((__int64)aInputYourFlag);//叫你输入flag
+      sub_140004ED8((__int64)v3, 128i64);//将flag赋给v3
+      v2 = -1i64;
+      do
+        ++v2;
+      while ( v3[v2] );//应该算v2的值，计算数组长度
+      sub_140001420((__int64)v3, v2);//第一步加密，异或和位运算，需要进一步看子函数。
+      memset(v1, 0, 0x100ui64);
+      sub_1400010E0((__int64)v3, (__int64)v1, v2);//改了base64编码索引表的加密方式，将v3再次加密，需要进一步看子函数。
+      if ( v1 )
+        break;
+      sub_140003498(aUnExpectedErro);
+    &#125;
+    if ( (unsigned int)sub_140001490((unsigned __int8 *)v1) )//将最后的v1和设定的字符串进行比较，如果对了就会跳出循环，说明正确，设定的字符串为 maj7TmztjquUN8Xm-hKplvaYfEAxrUnIc51qxlKOwCKN4XsdzBmjOd_-  ，长度为56，也可通过这个来计算v3长度为42。
+      break;
+    sub_140001060((__int64)aWrongFlagTryAg);
+  &#125;
+  sub_140001060((__int64)aCorrectYouAreR);
+  sub_140004EE0(v1);
+  sub_140004C24(aPause);
+  return 0i64;
+&#125;</code></pre>
+<p>重要子函数1</p>
+<pre><code>__int64 __fastcall sub_140001420(__int64 a1, unsigned int a2)//a1是v3，也就是加密后的，v2是数组长度。
+&#123;
+  __int64 result; // rax
+  signed int i; // [rsp+4h] [rbp-14h]
+
+  for ( i = 0; ; ++i )
+  &#123;
+    result = a2;
+    if ( i &gt;= (signed int)a2 )
+      break;
+    *(_BYTE *)(a1 + i) = i ^ ((*(_BYTE *)(a1 + i) &gt;&gt; 4) | 16 * *(_BYTE *)(a1 + i));//加密方式，注意其中的16*，意思是&lt;&lt;4,如果是8*的话，是&lt;&lt;3。
+  &#125;
+  return result;
+&#125;</code></pre>
+<p>重要子函数2，整体的加密过程不做过多分析</p>
+<pre><code>__int64 __fastcall sub_1400010E0(__int64 a1, __int64 a2, int a3)//a1是v3，是加密前的，a2是v2是加密后的，a3是原来的长度。
+&#123;
+  int v3; // ST00_4
+  int v4; // ST00_4
+  int v5; // ST00_4
+  int v7; // [rsp+0h] [rbp-18h]
+  int v8; // [rsp+4h] [rbp-14h]
+  int v9; // [rsp+8h] [rbp-10h]
+
+  v9 = a3 % 3;
+  v8 = 0;
+  v7 = 0;
+  while ( v8 &lt; a3 - v9 )
+  &#123;
+    *(_BYTE *)(a2 + v7) = aZyxwvutsrqponm[(signed int)*(unsigned __int8 *)(a1 + v8) &gt;&gt; 2];
+    v3 = v7 + 1;
+    *(_BYTE *)(a2 + v3++) = aZyxwvutsrqponm[((*(_BYTE *)(a1 + v8 + 1) &amp; 0xF0) &gt;&gt; 4) | 16 * (*(_BYTE *)(a1 + v8) &amp; 3)];
+    *(_BYTE *)(a2 + v3++) = aZyxwvutsrqponm[((*(_BYTE *)(a1 + v8 + 2) &amp; 0xC0) &gt;&gt; 6) | 4
+                                                                                    * (*(_BYTE *)(a1 + v8 + 1) &amp; 0xF)];  //4*是&lt;&lt;2。
+    *(_BYTE *)(a2 + v3) = aZyxwvutsrqponm[*(_BYTE *)(a1 + v8 + 2) &amp; 0x3F];
+    v7 = v3 + 1;
+    v8 += 3;
+  &#125;
+  if ( v9 == 1 )
+  &#123;
+    *(_BYTE *)(a2 + v7) = aZyxwvutsrqponm[(signed int)*(unsigned __int8 *)(a1 + v8) &gt;&gt; 2];
+    v4 = v7 + 1;
+    *(_BYTE *)(a2 + v4++) = aZyxwvutsrqponm[((*(_BYTE *)(a1 + v8 + 1) &amp; 0xF0) &gt;&gt; 4) | 16 * (*(_BYTE *)(a1 + v8) &amp; 3)];
+    *(_BYTE *)(a2 + v4++) = 61;
+    *(_BYTE *)(a2 + v4) = 61;//两个61代表加两个==
+    v7 = v4 + 1;
+  &#125;
+  else if ( v9 == 2 )
+  &#123;
+    *(_BYTE *)(a2 + v7) = aZyxwvutsrqponm[(signed int)*(unsigned __int8 *)(a1 + v8) &gt;&gt; 2];
+    v5 = v7 + 1;
+    *(_BYTE *)(a2 + v5++) = aZyxwvutsrqponm[((*(_BYTE *)(a1 + v8 + 1) &amp; 0xF0) &gt;&gt; 4) | 16 * (*(_BYTE *)(a1 + v8) &amp; 3)];
+    *(_BYTE *)(a2 + v5++) = aZyxwvutsrqponm[((*(_BYTE *)(a1 + v8 + 2) &amp; 0xC0) &gt;&gt; 6) | 4
+                                                                                    * (*(_BYTE *)(a1 + v8 + 1) &amp; 0xF)];
+    *(_BYTE *)(a2 + v5) = 61;
+    v7 = v5 + 1;
+  &#125;
+  return (unsigned int)v7;
+&#125;</code></pre>
+<p>其中最关键的还是那个 zyxwvutsrqponmlkjihgfedcbaABCDEFGHIJKLMNOPQRSTUVWXYZ9876543210-_ ，这是将编码的索引表改了。</p>
+<pre><code>// local variable allocation has failed, the output may be wrong!
+int __cdecl main(int argc, const char **argv, const char **envp)
+&#123;
+  _BYTE *v4; // [rsp+20h] [rbp-30h]
+  int v5; // [rsp+2Ch] [rbp-24h]
+  int v6; // [rsp+44h] [rbp-Ch]
+  int v7; // [rsp+48h] [rbp-8h]
+  int i; // [rsp+48h] [rbp-8h]
+  int v9; // [rsp+4Ch] [rbp-4h]
+
+  _main(*(_QWORD *)&amp;argc, argv, envp);
+  v5 = strlen(&quot;Happy birthday! yangtianci!&quot;);
+  if ( v5 % 3 )
+    v9 = 4 * (v5 / 3 + 1);
+  else
+    v9 = 4 * (v5 / 3);
+  v4 = malloc(v9 + 1i64);
+  v4[v9] = 0;
+  v7 = 0;
+  v6 = 0;
+  while ( v7 &lt; v5 )
+  &#123;
+    v4[v6] = aAbcdefghijklmn[(char)(aHappyBirthdayY[v7] &gt;&gt; 2)];
+    v4[v6 + 1] = aAbcdefghijklmn[16 * (aHappyBirthdayY[v7] &amp; 3) | (char)(aHappyBirthdayY[v7 + 1] &gt;&gt; 4)];
+    v4[v6 + 2] = aAbcdefghijklmn[4 * (aHappyBirthdayY[v7 + 1] &amp; 0xF) | (char)(aHappyBirthdayY[v7 + 2] &gt;&gt; 6)];
+    v4[v6 + 3] = aAbcdefghijklmn[aHappyBirthdayY[v7 + 2] &amp; 0x3F];
+    v7 += 3;
+    v6 += 4;
+  &#125;
+  if ( v5 % 3 == 1 )
+  &#123;
+    v4[v9 - 2] = 61;
+    v4[v9 - 1] = 61;
+  &#125;
+  else if ( v5 % 3 == 2 )
+  &#123;
+    v4[v9 - 1] = 61;
+  &#125;
+  for ( i = 0; i &lt; v9; ++i )
+    putchar((unsigned __int8)v4[i]);
+  return 0;
+&#125;</code></pre>
+<p>可以将自己写的base编码放到IDA里面看，与题中对比，大同小异。</p>
+<p>总结：看伪代码需要明确知道定义的各个变量的含义，以及放到子函数总哪个变量对应哪个变量，慢慢分析。</p>
+<h4 id="写脚本"><a href="#写脚本" class="headerlink" title="写脚本"></a>写脚本</h4><p>写脚本需要掌握base64解码</p>
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+/* run this program using the console pauser or add your own getch, system(&quot;pause&quot;) or input loop */
+
+int main(int argc, char *argv[]) &#123;
+        char *str1=&quot;maj7TmztjquUN8Xm-hKplvaYfEAxrUnIc51qxlKOwCKN4XsdzBmjOd_-&quot;;
+        unsigned char *str2;
+        int table[]=&#123;0,0,0,0,0,0,0,0,0,0,0,0,
+             0,0,0,0,0,0,0,0,0,0,0,0,
+             0,0,0,0,0,0,0,0,0,0,0,
+             0,0,0,0,0,0,0,0,0,0,62,0,
+             0,61,60,59,58,57,56,55,
+             54,53,52,0,0,0,0,0,0,0,26,
+             27,28,29,30,31,32,33,34,35,36,37,38,
+             39,40,41,42,43,44,45,46,47,
+             48,49,50,51,0,0,0,0,63,0,25,
+             24,23,22,21,20,19,18,17,16,
+             15,14,13,12,11,10,9,8,7,
+             6,5,4,3,2,1,0
+               &#125;; //换了之后的索引表
+        int len1;
+        int len2;
+        int i,j; 
+
+        len1=strlen(str1);
+        if(strstr(str1,&quot;==&quot;))
+        &#123;
+            len2=(len1/4)*3-2;
+        &#125;    
+        else if(strstr(str1,&quot;=&quot;))
+        &#123;
+            len2=(len1/4)*3-1;
+        &#125;
+        else
+        &#123;
+            len2=(len1/4)*3;
+        &#125;
+
+        str2=malloc(sizeof(unsigned char)*len2+1);  
+        str2[len2]=&#39;\0&#39;;
+
+        for(i=0,j=0;i&lt;len1-2;i+=4,j+=3)
+        &#123;
+            str2[j]=((table[str1[i]])&lt;&lt;2)|((table[str1[i+1]])&gt;&gt;4);
+            str2[j+1]=(table[str1[i+1]]&lt;&lt;4)|((table[str1[i+2]])&gt;&gt;2);
+            str2[j+2]=((table[str1[i+2]])&lt;&lt;6)|(table[str1[i+3]]);
+        &#125;
+
+    //    printf(&quot;%d&quot;,len2); 
+        for(i=0;i&lt;len2;i++)
+        &#123;
+              printf(&quot;%d &quot;,str2[i]);
+           &#125;
+
+           printf(&quot;\n&quot;) ;
+
+        //第一步base解码
+
+           for(i=0;i&lt;len2;i++)
+           &#123;
+               str2[i]=((str2[i]^i)&lt;&lt;4)|((str2[i]^i)&gt;&gt;4); //第二步解密。
+               printf(&quot;%c&quot;,str2[i]);
+           &#125;
+
+    return 0;
+&#125;</code></pre>
+<h4 id="三-得到flag"><a href="#三-得到flag" class="headerlink" title="三.得到flag"></a>三.得到flag</h4><p>SYC{M0dified_B@se64_is_Sti11_S1mpl3_Right}</p>
+<h3 id="9-un-snake"><a href="#9-un-snake" class="headerlink" title="9.un_snake"></a>9.un_snake</h3><h4 id="一-反汇编"><a href="#一-反汇编" class="headerlink" title="一.反汇编"></a>一.反汇编</h4><p>首先下载下来发现是pyc的文件，网上一搜需要反编译，用网上在线编译，发现少了很多代码。然后用uncompyle6进行反编译</p>
+<pre><code>uncompyle6 -o  C:\Users\hp\Downloads\un_snake.cpython-38.py C:\Users\hp\Downloads\un_snake.cpython-38.pyc</code></pre>
+<p>在cmd中输入这串代码如果这样有</p>
+<pre><code># Successfully decompiled file</code></pre>
+<p>代表成功了</p>
+<h3 id="二-分析代码-1"><a href="#二-分析代码-1" class="headerlink" title="二.分析代码"></a>二.分析代码</h3><p>将反编译出来的.py文件后缀名改为.c。为了好看一点，打开如下</p>
+<pre><code># uncompyle6 version 3.7.4
+# Python bytecode 3.8 (3413)
+# Decompiled from: Python 3.8.5 (tags/v3.8.5:580fbb0, Jul 20 2020, 15:57:54) [MSC v.1924 64 bit (AMD64)]
+# Embedded file name: ./un_snake.py
+# Compiled at: 2020-08-05 16:20:40
+# Size of source mod 2**32: 1238 bytes
+import this
+from base64 import *
+
+def pre(data):
+    th1s = &#39;TBESCFSRSAEUITANAIIN&#39;.encode()
+    if (data_len := len(data)) &gt; (th1s_len := len(th1s)):
+        th1s = th1s * (data_len // th1s_len) + th1s[:data_len - th1s_len]     #这个if主要是将date的长度弄的和th1s一样
+    return bytes(map(lambda x, y: x ^ y, data, th1s))  #再算stuff.encode()
+
+
+def enc(plain):
+    plain = list(plain)
+    plain = plain[::-1]  #将字符串反着排序 
+    for i in range(len(plain)):
+        c = plain[i]
+        plain[i] = (c &lt;&lt; 3 | c &gt;&gt; 5) &amp; 255   #先执行for循环，再执行else里面的
+    else:
+        for i in range(len(plain) - 1):
+            plain[i] ^= plain[(i + 1)]#异或运算，将plain加密了
+        else:
+            return bytes(plain)  #再算stuff_ready 
+
+
+def check(a):
+    return b64encode(a) == b&#39;mEiQCAjJoXJy2NiZQGGQyRm6IgHYQZAICKgowHHo4Dg=&#39;  //base64解码，先算enc(stuff_ready) 
+
+
+if __name__ == &#39;__main__&#39;:
+    print()
+    while True:
+        stuff = input(&#39;Now input you flag:&#39;)   //输入的flag，最终目标 
+        stuff_ready = pre(stuff.encode())
+        result = check(enc(stuff_ready))
+#其实就是3个逆向的问题，一步一步往上推，每一个函数都代表一个加密，其中第2个加密最复杂
+        if result:
+            print(&#39;You get it! Python is so charming right?&#39;)
+            break
+        else:
+            print(&#39;Failed, try again!&#39;)
+
+    print(&#39;[馃悕] Commit you flag, see you next time!&#39;)</code></pre>
+<p>看到这个Python代码，开始什么感觉有些地方看不懂，网上查了一部分，Python自学了一部分(也就学到了列表)，然后进行分析个大概思路，简略分析在上面的代码后面,下面是查找的一些内容。</p>
+<p>1.plain = plain[::-1]</p>
+<pre><code>b = a[i:j]   表示复制a[i]到a[j-1]，以生成新的list对象
+
+a = [0,1,2,3,4,5,6,7,8,9]
+b = a[1:3]   # [1,2]
+当i缺省时，默认为0，即 a[:3]相当于 a[0:3]
+当j缺省时，默认为len(alist), 即a[1:]相当于a[1:10]
+当i,j都缺省时，a[:]就相当于完整复制一份a
+
+b = a[i:j:s]表示：i,j与上面的一样，但s表示步进，缺省为1.
+所以a[i:j:1]相当于a[i:j]
+当s&lt;0时，i缺省时，默认为-1. j缺省时，默认为-len(a)-1
+所以a[::-1]相当于 a[-1:-len(a)-1:-1]，也就是从最后一个元素到第一个元素复制一遍，即倒序。</code></pre>
+<p>2.map(lambda x, y: x ^ y, data, th1s)</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/landing_guy_/article/details/109331685" title="map，lambda">https://blog.csdn.net/landing_guy_/article/details/109331685</a></p>
+<p>3.for循环后面直接接else（主要是学Python没见过，不知道怎么走）</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/wj1066/article/details/81913696">https://blog.csdn.net/wj1066/article/details/81913696</a></p>
+<h4 id="三-写脚本-1"><a href="#三-写脚本-1" class="headerlink" title="三.写脚本"></a>三.写脚本</h4><p>然后开始写脚本，由于本人很菜所以，将base64解码分开写的。</p>
+<p>由于网上直接base64解码，会出现乱码，所以在Python中解码，代码如下</p>
+<pre><code>import base64
+url = &quot;mEiQCAjJoXJy2NiZQGGQyRm6IgHYQZAICKgowHHo4Dg=&quot;
+str_url = base64.b64decode(url)
+print(str_url)</code></pre>
+<p>得到结果</p>
+<pre><code>b&#39;\x98H\x90\x08\x08\xc9\xa1rr\xd8\xd8\x99@a\x90\xc9\x19\xba&quot;\x01\xd8A\x90\x08\x08\xa8(\xc0q\xe8\xe08&#39;</code></pre>
+<p>是16进制和一些字符的组合，全部换为10进制（因为我比较喜欢10进制），注意最后的那个8，它转换为10进制是56，就是这一个数，会让你得不到flag（本人深有体会)。转出来如下</p>
+<pre><code>a[]=&#123;152,72,144,8,8,201,161,114,114,216,216,153,64,97,144,201,25,186,34,1,216,65,144,8,8,168,40,192,113,232,224,56&#125;</code></pre>
+<p>然后进行第二，三步解密</p>
+<pre><code>#include&lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+int main(void)
+&#123;
+int a[]=&#123;152,72,144,8,8,201,161,114,114,216,216,153,64,97,144,201,25,186,34,1,216,65,144,8,8,168,40,192,113,232,224,56&#125;;//base64解码后的10进制。
+
+int b[]=&#123;84,66,69,83,67,70,83,82,83,65,69,85,73,84,65,78,65,73,73,78,84,66,69,83,67,70,83,82,83,65,69,85&#125;;//这是上面Python中的th1s换成了10进制，可以另外写一个脚本吧上面th1s用整型输出，就不用一个一个写。因为base64解码后的长度为64，故b[]的长度也必须要是32，也就是原来的基础上加上前12个字符。
+int i,j;
+int c,t,len;
+
+len=sizeof(a)/sizeof(int);//求出解码后的长度，32
+
+printf(&quot;%d&quot;,len);
+printf(&quot;\n&quot;);
+
+for(i=0;i!=len;i++)
+&#123;
+    printf(&quot;%d,&quot;,a[i]);
+&#125;
+printf(&quot;\n&quot;);
+printf(&quot;%d&quot;,a[31]);
+printf(&quot;\n&quot;);
+
+for(i=len-2;i!=-1;i--)
+&#123;
+    a[i]=a[i]^a[i+1];//反向异或回去，可以自己举4个数来看看是不是真的可以反向异或回去。
+&#125;
+
+for(i=0;i!=len;i++)
+&#123;
+    printf(&quot;%d,&quot;,a[i]);
+&#125;
+printf(&quot;\n&quot;);
+
+for(i=0;i!=len;i++)
+&#123;
+    a[i]=((a[i]&lt;&lt;5)|(a[i]&gt;&gt;3))&amp;255;//进行位移运算，也可以举例看看怎么弄回去。注意的是其中的&amp;，作用为：主要是限定范围。不会得到大于255的数。
+    printf(&quot;%d,&quot;,a[i]);
+&#125;//输出位移后的数组 
+
+printf(&quot;\n&quot;);
+for(i = 0; i &lt; (len-1)/2; i++)
+&#123;
+    t = a[i];
+    a[i] = a[len-i-1];
+    a[len-i-1] = t;
+&#125;//将字符串倒序 
+
+for(i=0;i!=len;i++)
+&#123;
+    printf(&quot;%d,&quot;,a[i]);
+&#125;
+
+printf(&quot;\n&quot;);
+for(i=0;i!=len;i++)
+&#123;
+    a[i]=a[i]^b[i];
+    printf(&quot;%c&quot;,a[i]);
+&#125;//输出最后的flag</code></pre>
+<p>附加脚本</p>
+<p>16进制转10进制<br>    #include &lt;stdio.h&gt;</p>
+<pre><code>int main(void)
+
+ &#123;
+
+    int i;
+    int a[]=&#123;0x98,0x48,0x90,0x08,0x08,0xc9,0xa1,0x72,0x72,0xd8,0xd8,0x99,0x40,0x61,0x90,0xc9,0x19,0xba,0x22,0x01,0xd8,0x41,0x90,0x08,0x08,0xa8,0x28,0xc0,0x71,0xe8,0xe0,0x38&#125;;
+    for(i=0;i!=32;i++)
+    &#123;
+        printf(&quot;%d,&quot;,a[i]);
+    &#125;
+    printf(&quot;\n&quot;);
+    return 0;
+&#125;</code></pre>
+<p>th1s转10进制</p>
+<pre><code>#include&lt;stdio.h&gt;
+
+int main(void)
+&#123;
+    char a[]=&quot;TBESCFSRSAEUITANAIINTBESCFSRSAEU&quot;;
+    int i;
+    for(i=0;a[i]!=&#39;\0&#39;;i++)
+    &#123;
+        printf(&quot;%d,&quot;,a[i]);
+    &#125;
+    return 0;
+&#125;</code></pre>
+<h4 id="四-得到flag"><a href="#四-得到flag" class="headerlink" title="四.得到flag"></a>四.得到flag</h4><p>SYC{ssssss_Th1sfPs_Pyth0n_ssss~}#我得到的是这个，可能上面某个位置数据错了，看了下flag，直接改一下得到下面的flag。</p>
+<pre><code>SYC&#123;ssssss_Th1s_is_Pyth0n_ssss~&#125;</code></pre>
+<h2 id="Misc题目"><a href="#Misc题目" class="headerlink" title="Misc题目"></a>Misc题目</h2><h3 id="1-一“页”障目"><a href="#1-一“页”障目" class="headerlink" title="1.一“页”障目"></a>1.一“页”障目</h3><p>直接把宣传单对折，得到flag</p>
+<h3 id="2-壮言壮语"><a href="#2-壮言壮语" class="headerlink" title="2.壮言壮语"></a>2.壮言壮语</h3><p>直接网上佛曰解密，得到flag</p>
+<pre><code>我刘壮就是np，给你flag吧,SYC&#123;i_l0ve_Japanese_wife&#125;</code></pre>
+<h3 id="3-秘技·反复横跳"><a href="#3-秘技·反复横跳" class="headerlink" title="3.秘技·反复横跳"></a>3.秘技·反复横跳</h3><p>网上根据提示搜索binwalk。<br><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/03f15e6fedf3">https://www.jianshu.com/p/03f15e6fedf3</a><br>一道类似的题，在ubuntu中执行网站中的操作就可以了，最后分解图片会得到一个二维码，但是是左右交换了的，也算点题把，交换回来，微信扫一扫，就可以得到flag了</p>
+<pre><code>SYC&#123;L3ft~Le4t~R1gHt~RiGhT&#125;</code></pre>
+<h3 id="4-飞翔的刘壮"><a href="#4-飞翔的刘壮" class="headerlink" title="4.飞翔的刘壮"></a>4.飞翔的刘壮</h3><p>题目提示： Welcome “into” 11th Geek Challeng.这里的into就应该代表的是10。<br>一个游戏，下载到手机上，在得到10分的时候死了，就可以得到flag</p>
+<pre><code>SYC&#123;fl4ppyb1rd_1s_s0_inter3tin9!&#125;</code></pre>
+<h3 id="5-来拼图"><a href="#5-来拼图" class="headerlink" title="5.来拼图"></a>5.来拼图</h3><p>就是从众多图片中选出有flag信息的拼在一起，拼出来有点不好看</p>
+<pre><code>SYC&#123;d60fca51c7e61259191f0&#125;</code></pre>
+<h3 id="6-吉普赛的歌姬"><a href="#6-吉普赛的歌姬" class="headerlink" title="6.吉普赛的歌姬"></a>6.吉普赛的歌姬</h3><p>不知道这道题考什么，考信息收集能力？去QQ空间看看，然后知道flag在相册里面，然后根据说说前两条，先到贴吧看看，然后搜索DJ南方，然后叫你去网易找伪·Nightcore这个电台，（中间还会遇到两个base64加密的假flag，人心险恶）找一首叫吉普赛歌姬的歌（歌里面什么也没有），但是歌下面有评论说，密码是名字+生日，然后进入相册，得到一张图片，上面有flag</p>
+<pre><code>SYC&#123;Fr1endsh1p_1s_w1tchcr@ft&#125;</code></pre>
+<h2 id="pwn题目"><a href="#pwn题目" class="headerlink" title="pwn题目"></a>pwn题目</h2><h3 id="1-数学咋样？"><a href="#1-数学咋样？" class="headerlink" title="1.数学咋样？"></a>1.数学咋样？</h3><p>用ubuntu打开端口</p>
+<pre><code>luckyboy@luckyboy-virtual-machine:~$ nc 81.69.0.47 1111
+------------------------------------------
+Can you help me to solve my math problem?
+------------------------------------------
+I have 20 tests
+![0]  num_1 = 822, num_2 = 701
+I can&#39;t calculate the expression &#39;num_1 + num_2&#39;.
+input your answer:</code></pre>
+<p>进行20次计算，最后得到flag</p>
+<h3 id="2-runcode"><a href="#2-runcode" class="headerlink" title="2.runcode"></a>2.runcode</h3><p>考点是读取一个文件并输出，百度搜索一下怎么读取一个文件<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_26853817/article/details/79756617">https://blog.csdn.net/qq_26853817/article/details/79756617</a>，根据这个来写脚本。如下</p>
+<pre><code>#include &lt;stdio.h&gt; 
+
+int main(void)
+&#123;
+    char a[200] = &#123;0&#125;;
+    FILE *fp = fopen(&quot;/home/ctf/flag&quot;, &quot;r&quot;);
+
+    fgets(a, 100, fp);
+    puts(a);
+
+    return 0; 
+&#125;</code></pre>
+<p>注意数组长度要足够长，不然读不完。放到网站里面run，run两次，得到flag</p>
+<pre><code>SYC&#123;C0din9_ls_E4sy_T0_You&#125;</code></pre>
+<h2 id="密码学题目"><a href="#密码学题目" class="headerlink" title="密码学题目"></a>密码学题目</h2><h3 id="1-二战情报员刘壮"><a href="#1-二战情报员刘壮" class="headerlink" title="1.二战情报员刘壮"></a>1.二战情报员刘壮</h3><p>摩氏密码，直接网上在线解密，得到L1UZHU4NG_I_Z1Y1，得到flag</p>
+<pre><code>SYC&#123;L1UZHU4NG_I_Z1Y1&#125;</code></pre>
+<h3 id="2-铠甲与萨满"><a href="#2-铠甲与萨满" class="headerlink" title="2.铠甲与萨满"></a>2.铠甲与萨满</h3><p>凯撒密码，直接网上在线解密，先根据前三个字母确定位移为6，也可以一个一个试，解密出来的flag为</p>
+<pre><code>SYC&#123;liuzhuangliuzhuang_bangbangbang&#125;</code></pre>
+<h3 id="3-跳跃的指尖"><a href="#3-跳跃的指尖" class="headerlink" title="3.跳跃的指尖"></a>3.跳跃的指尖</h3><p>跳跃的指尖，需要脑洞大一点，就是键盘啦，每一段字母都会围一个单词，写出所有单词就是flag</p>
+<pre><code>SYC&#123;easyCrypto&#125;</code></pre>
+<h3 id="4-成都养猪二厂"><a href="#4-成都养猪二厂" class="headerlink" title="4.成都养猪二厂"></a>4.成都养猪二厂</h3><p>猪圈密码和栅栏密码，网上在线解密，先把图片中的猪圈密码解出来得到ssyirceehsagiulisolbhy，然后根据那个txt里面的内容确定栅栏密码的位移量为7，网上在线解密，得到flag</p>
+<pre><code>SYC&#123;his_house_is_really_big&#125;</code></pre>
+<h3 id="5-规规矩矩的工作"><a href="#5-规规矩矩的工作" class="headerlink" title="5.规规矩矩的工作"></a>5.规规矩矩的工作</h3><p>看题目和提示，应该是考矩阵和希尔密码，直接在网上解矩阵，<a target="_blank" rel="noopener" href="https://matrix.reshish.com/">https://matrix.reshish.com/</a>，得到</p>
+<pre><code>x1 = 10
+x2 = 4
+x3 = -2</code></pre>
+<p>A=0,B=1,C=2……然后换为字母，为KEY，用cmd打开decode_machine.exe（要不然直接打开好像会闪退），输入KEY,得到flag</p>
+<pre><code>SYC&#123;linear_algebra_make_ctf_great_again&#125;</code></pre>
+<h3 id="6-Simple-calculation"><a href="#6-Simple-calculation" class="headerlink" title="6.Simple calculation"></a>6.Simple calculation</h3><p>这道题部分靠运气，直接解矩阵，得到</p>
+<pre><code>x1 = 77/2
+x2 = -48
+x3 = -21
+x4 = 65
+x5 = -63/2</code></pre>
+<p>有分数，x1和x5分数求余的话好像网上找了很多也没有解出来，然后试着将，3 7 1 1 20换为29 7 1 1 -6（实际上试了很多数,加上一点点LOL基础），解出来得到</p>
+<pre><code>x1 = 19
+x2 = 30
+x3 = 18
+x4 = -65
+x5 = 27</code></pre>
+<p>全部换到0~26范围，得到flag</p>
+<pre><code>SYC&#123;TESNB&#125;</code></pre>
+<h3 id="7-韡髻猊岈"><a href="#7-韡髻猊岈" class="headerlink" title="7.韡髻猊岈"></a>7.韡髻猊岈</h3><p>Vigenere解密，网上自己找资料，了解原理，Vigenere解密第一步要确定密钥长度，第二步要算出密钥是什么，这个要知道原理和对照那个Vigenere表来算密钥。<br>首先根据相同的单词算出密钥长度为6，在根据加密内容中的TGP（解密出来肯定是SYC），算出半个密钥为bin，然后开始在bin前面加aaa变成aaabin，去解密，发现SYC后面的英文为</p>
+<pre><code>vhxre iu nh teats bn viiegere，</code></pre>
+<p>那个iu，肯定是is，通过这个又算出一个密钥的字母caabin，在用这个来解密，得到</p>
+<pre><code>thxre is nh tears bn vigegere</code></pre>
+<p>这个thxre肯定是there，从而算出密钥为catbin，得到flag</p>
+<pre><code>SYC&#123;there_is_no_tears_in_vigenere&#125;</code></pre>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">ME_dition</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://example.com/2022/10/01/ctf01/">http://example.com/2022/10/01/ctf01/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/11/30/xv5lFdpMEzkDRi1.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/10/01/hello-world/"><img class="prev-cover" src="https://i.loli.net/2020/11/29/lCNmEv4GKQqUbnT.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">Hello World</div></div></a></div><div class="next-post pull-right"><a href="/2022/10/01/ctf-wiki/"><img class="next-cover" src="https://i.loli.net/2021/08/04/kOYSuj9XdK6wbGx.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">ctf-wiki</div></div></a></div></nav></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="/null" onerror="this.onerror=null;this.src='/img/logo.jpg'" alt="avatar"/><div class="author-info__name">ME_dition</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">26</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div></div><div class="card-widget card-announcement"><div class="card-content"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>Announcement</span></div><div class="announcement_content">welcome to my world</div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="card-content"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#web%E9%A2%98"><span class="toc-number">1.</span> <span class="toc-text">web题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%9C%8B%E5%8F%8B%E7%9A%84%E5%AD%A6%E5%A6%B9"><span class="toc-number">1.1.</span> <span class="toc-text">1.朋友的学妹</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-EZwww"><span class="toc-number">1.2.</span> <span class="toc-text">2.EZwww</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%88%98%E5%A3%AE%E7%9A%84%E9%BB%91%E9%A1%B5"><span class="toc-number">1.3.</span> <span class="toc-text">3.刘壮的黑页</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-Welcome"><span class="toc-number">1.4.</span> <span class="toc-text">4.Welcome</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E6%88%91%E6%98%AF%E5%A4%A7%E9%BB%91%E5%AE%A2"><span class="toc-number">1.5.</span> <span class="toc-text">5.我是大黑客</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-ezbypass"><span class="toc-number">1.6.</span> <span class="toc-text">6.ezbypass</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#re%E9%A2%98%E7%9B%AE"><span class="toc-number">2.</span> <span class="toc-text">re题目</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-No-RE-no-gain"><span class="toc-number">2.1.</span> <span class="toc-text">1.No RE no gain</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%88%91%E7%9C%9F%E4%B8%8D%E4%BC%9A%E5%86%99%E9%A9%B1%E5%8A%A8%EF%BC%81"><span class="toc-number">2.2.</span> <span class="toc-text">2.我真不会写驱动！</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-WhatsApk"><span class="toc-number">2.3.</span> <span class="toc-text">3.WhatsApk</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-HelloAndroid"><span class="toc-number">2.4.</span> <span class="toc-text">4.HelloAndroid</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-re00"><span class="toc-number">2.5.</span> <span class="toc-text">5.re00</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-maze"><span class="toc-number">2.6.</span> <span class="toc-text">6.maze</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-Hello-NET"><span class="toc-number">2.7.</span> <span class="toc-text">7.Hello .NET</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80-%E5%8F%8D%E7%BC%96%E8%AF%91"><span class="toc-number">2.7.1.</span> <span class="toc-text">一.反编译</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C-%E5%88%86%E6%9E%90%E4%BB%A3%E7%A0%81"><span class="toc-number">2.7.2.</span> <span class="toc-text">二.分析代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%89-%E5%86%99%E8%84%9A%E6%9C%AC"><span class="toc-number">2.7.3.</span> <span class="toc-text">三.写脚本</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E5%88%98%E5%A3%AE%E7%9A%84BaseXX"><span class="toc-number">2.8.</span> <span class="toc-text">8.刘壮的BaseXX</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80-%E8%B0%83%E8%AF%95%E4%B8%8E%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90"><span class="toc-number">2.8.1.</span> <span class="toc-text">一.调试与代码分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%99%E8%84%9A%E6%9C%AC"><span class="toc-number">2.8.2.</span> <span class="toc-text">写脚本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%89-%E5%BE%97%E5%88%B0flag"><span class="toc-number">2.8.3.</span> <span class="toc-text">三.得到flag</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-un-snake"><span class="toc-number">2.9.</span> <span class="toc-text">9.un_snake</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80-%E5%8F%8D%E6%B1%87%E7%BC%96"><span class="toc-number">2.9.1.</span> <span class="toc-text">一.反汇编</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C-%E5%88%86%E6%9E%90%E4%BB%A3%E7%A0%81-1"><span class="toc-number">2.10.</span> <span class="toc-text">二.分析代码</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%89-%E5%86%99%E8%84%9A%E6%9C%AC-1"><span class="toc-number">2.10.1.</span> <span class="toc-text">三.写脚本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%9B-%E5%BE%97%E5%88%B0flag"><span class="toc-number">2.10.2.</span> <span class="toc-text">四.得到flag</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Misc%E9%A2%98%E7%9B%AE"><span class="toc-number">3.</span> <span class="toc-text">Misc题目</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%B8%80%E2%80%9C%E9%A1%B5%E2%80%9D%E9%9A%9C%E7%9B%AE"><span class="toc-number">3.1.</span> <span class="toc-text">1.一“页”障目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%A3%AE%E8%A8%80%E5%A3%AE%E8%AF%AD"><span class="toc-number">3.2.</span> <span class="toc-text">2.壮言壮语</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E7%A7%98%E6%8A%80%C2%B7%E5%8F%8D%E5%A4%8D%E6%A8%AA%E8%B7%B3"><span class="toc-number">3.3.</span> <span class="toc-text">3.秘技·反复横跳</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E9%A3%9E%E7%BF%94%E7%9A%84%E5%88%98%E5%A3%AE"><span class="toc-number">3.4.</span> <span class="toc-text">4.飞翔的刘壮</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E6%9D%A5%E6%8B%BC%E5%9B%BE"><span class="toc-number">3.5.</span> <span class="toc-text">5.来拼图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E5%90%89%E6%99%AE%E8%B5%9B%E7%9A%84%E6%AD%8C%E5%A7%AC"><span class="toc-number">3.6.</span> <span class="toc-text">6.吉普赛的歌姬</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pwn%E9%A2%98%E7%9B%AE"><span class="toc-number">4.</span> <span class="toc-text">pwn题目</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%95%B0%E5%AD%A6%E5%92%8B%E6%A0%B7%EF%BC%9F"><span class="toc-number">4.1.</span> <span class="toc-text">1.数学咋样？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-runcode"><span class="toc-number">4.2.</span> <span class="toc-text">2.runcode</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%86%E7%A0%81%E5%AD%A6%E9%A2%98%E7%9B%AE"><span class="toc-number">5.</span> <span class="toc-text">密码学题目</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BA%8C%E6%88%98%E6%83%85%E6%8A%A5%E5%91%98%E5%88%98%E5%A3%AE"><span class="toc-number">5.1.</span> <span class="toc-text">1.二战情报员刘壮</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%93%A0%E7%94%B2%E4%B8%8E%E8%90%A8%E6%BB%A1"><span class="toc-number">5.2.</span> <span class="toc-text">2.铠甲与萨满</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%B7%B3%E8%B7%83%E7%9A%84%E6%8C%87%E5%B0%96"><span class="toc-number">5.3.</span> <span class="toc-text">3.跳跃的指尖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%88%90%E9%83%BD%E5%85%BB%E7%8C%AA%E4%BA%8C%E5%8E%82"><span class="toc-number">5.4.</span> <span class="toc-text">4.成都养猪二厂</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E8%A7%84%E8%A7%84%E7%9F%A9%E7%9F%A9%E7%9A%84%E5%B7%A5%E4%BD%9C"><span class="toc-number">5.5.</span> <span class="toc-text">5.规规矩矩的工作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-Simple-calculation"><span class="toc-number">5.6.</span> <span class="toc-text">6.Simple calculation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E9%9F%A1%E9%AB%BB%E7%8C%8A%E5%B2%88"><span class="toc-number">5.7.</span> <span class="toc-text">7.韡髻猊岈</span></a></li></ol></li></ol></div></div></div><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/10/01/%E8%BF%9C%E6%8E%A7ghost/" title="记第一个GitHub项目 --ghost远控"><img src="https://s2.loli.net/2022/04/09/5ifjTZXhEPV4bLp.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="记第一个GitHub项目 --ghost远控"/></a><div class="content"><a class="title" href="/2022/10/01/%E8%BF%9C%E6%8E%A7ghost/" title="记第一个GitHub项目 --ghost远控">记第一个GitHub项目 --ghost远控</a><time datetime="2022-10-01T09:33:18.668Z" title="Created 2022-10-01 17:33:18">2022-10-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/10/01/%E6%B1%87%E7%BC%96/" title="汇编学习"><img src="https://i.loli.net/2020/11/30/l2EKT4GHdDrBAob.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="汇编学习"/></a><div class="content"><a class="title" href="/2022/10/01/%E6%B1%87%E7%BC%96/" title="汇编学习">汇编学习</a><time datetime="2022-10-01T09:33:18.666Z" title="Created 2022-10-01 17:33:18">2022-10-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/10/01/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E/" title="Web学习 文件包含漏洞"><img src="https://s2.loli.net/2022/04/09/iW8lPrLuBGC1pKf.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Web学习 文件包含漏洞"/></a><div class="content"><a class="title" href="/2022/10/01/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E/" title="Web学习 文件包含漏洞">Web学习 文件包含漏洞</a><time datetime="2022-10-01T09:33:18.663Z" title="Created 2022-10-01 17:33:18">2022-10-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/10/01/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/" title="Web学习 文件上传漏洞"><img src="https://s2.loli.net/2022/04/09/iW8lPrLuBGC1pKf.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Web学习 文件上传漏洞"/></a><div class="content"><a class="title" href="/2022/10/01/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/" title="Web学习 文件上传漏洞">Web学习 文件上传漏洞</a><time datetime="2022-10-01T09:33:18.662Z" title="Created 2022-10-01 17:33:18">2022-10-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/10/01/%E4%B8%9C%E5%8D%8E%E6%9D%AF11.6/" title="十一月六日-CTF-PWN"><img src="https://i.loli.net/2021/11/16/VmMlbYZgdGvQkCw.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="十一月六日-CTF-PWN"/></a><div class="content"><a class="title" href="/2022/10/01/%E4%B8%9C%E5%8D%8E%E6%9D%AF11.6/" title="十一月六日-CTF-PWN">十一月六日-CTF-PWN</a><time datetime="2022-10-01T09:33:18.659Z" title="Created 2022-10-01 17:33:18">2022-10-01</time></div></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(https://i.loli.net/2020/11/30/xv5lFdpMEzkDRi1.jpg)"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By ME_dition</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>
